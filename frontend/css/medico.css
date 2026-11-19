@@ -85,30 +85,6 @@ body {
     margin-top: 7px;
 }
 
-/* BOTÃO TV DO CABEÇALHO */
-
-.btn-tv-header {
-    border: 1px solid rgba(255,255,255,0.3);
-    background: rgba(255,255,255,0.13);
-    color: white;
-
-    padding: 13px 20px;
-    border-radius: 10px;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    cursor: pointer;
-    transition: 0.25s;
-    backdrop-filter: blur(10px);
-}
-
-.btn-tv-header:hover {
-    background: white;
-    color: var(--vermelho);
-    transform: translateY(-2px);
-}
-
 /* CONSULTÓRIO */
 
 .consultorio-box {
@@ -390,6 +366,79 @@ body {
     color: white;
 }
 
+/* =========================================
+   BOTÃO ABRIR TELA DA TV
+========================================= */
+
+.acoes-fila {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.acoes-fila .btn-tv-header {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    width: 100%;
+    min-height: 56px;
+    padding: 15px 22px;
+
+    background: linear-gradient(
+        115deg,
+        #761426,
+        #a51e32 65%,
+        #bd3447
+    );
+
+    color: #ffffff;
+
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 14px rgba(165, 30, 50, 0.18),
+        inset 0 1px 0 rgba(255,255,255,0.15);
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.acoes-fila .btn-tv-header:hover {
+    background: linear-gradient(
+        115deg,
+        #5e1020,
+        #861629
+    );
+
+    box-shadow: 0 9px 22px rgba(118, 20, 38, 0.25);
+
+    transform: translateY(-3px);
+}
+
+.acoes-fila .btn-tv-header:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.acoes-fila .btn-tv-header:focus-visible {
+    outline: 3px solid rgba(165, 30, 50, 0.25);
+    outline-offset: 4px;
+}
+
 /* ALERTA DE ALERGIA */
 
 .alerta-alergia {
@@ -518,7 +567,7 @@ body {
     box-shadow: 0 8px 20px rgba(165, 30, 50, 0.24);
 }
 
-/* TRANSIÇÕES */
+/* TRANSIÇÕES E ACESSIBILIDADE */
 
 button:active {
     transform: scale(0.98);
@@ -557,7 +606,6 @@ button:disabled {
 /* RESPONSIVIDADE */
 
 @media (max-width: 1000px) {
-
     body {
         padding: 22px;
     }
@@ -565,11 +613,9 @@ button:disabled {
     .medico-grid {
         grid-template-columns: 1fr;
     }
-
 }
 
 @media (max-width: 600px) {
-
     body {
         padding: 12px;
     }
@@ -583,10 +629,6 @@ button:disabled {
 
     .topo-painel h2 {
         font-size: 22px;
-    }
-
-    .btn-tv-header {
-        width: 100%;
     }
 
     .consultorio-box {
@@ -617,10 +659,15 @@ button:disabled {
         padding: 14px;
     }
 
+    .acoes-fila .btn-tv-header {
+        width: 100%;
+        min-height: 54px;
+        padding: 14px;
+    }
+
     .indicador-atualizacao {
         font-size: 9px;
     }
-
 }
 
 /* REDUZ ANIMAÇÕES PARA QUEM PREFERIR */
@@ -631,5 +678,6 @@ button:disabled {
     *::after {
         scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
     }
 }
