@@ -1,58 +1,84 @@
 
 /* =========================================
-   HOSPITAL SENTINELA
-   PAINEL MÉDICO - DESIGN PREMIUM
-   VINHO | PRATA | BRANCO | CINZA
+   HOSPITAL SENTINELA — PAINEL MÉDICO
+   Identidade: Vinho | Branco | Prata
 ========================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
 :root {
-    --vinho: #762536;
-    --vinho-escuro: #501825;
-    --vinho-claro: #f7edef;
-    --vinho-medio: #914657;
+  --vinho: #762536;
+  --vinho-escuro: #501825;
+  --vinho-medio: #914657;
+  --vinho-claro: #f8edef;
 
-    --prata: #bfc2c9;
-    --prata-clara: #e2e3e6;
-    --prata-escura: #9299a3;
+  --prata: #bfc2c9;
+  --prata-clara: #e2e3e6;
+  --prata-escura: #9299a3;
 
-    --branco: #ffffff;
-    --fundo: #f7f7f8;
-    --cinza: #7e8791;
-    --cinza-claro: #e9eaed;
-    --cinza-escuro: #30343c;
+  --branco: #ffffff;
+  --fundo: #f5f5f7;
 
-    --verde: #25845a;
-    --amarelo: #c18a25;
+  --cinza: #7e8791;
+  --cinza-claro: #e9eaed;
+  --cinza-escuro: #30343c;
 
-    --sombra: 0 10px 35px rgba(40, 30, 35, .055);
-    --borda: 1px solid #dfe0e4;
-    --raio: 12px;
+  --verde: #25845a;
+  --amarelo: #c18a25;
+  --vermelho: #bd3545;
+
+  --sombra: 0 8px 28px rgba(38, 30, 35, 0.07);
+  --sombra-forte: 0 14px 35px rgba(80, 24, 37, 0.13);
+
+  --borda: 1px solid #e2e3e6;
+  --raio: 16px;
 }
 
 /* RESET */
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    background: var(--fundo);
-    color: var(--cinza-escuro);
-    min-height: 100vh;
-    padding: 35px;
+  min-height: 100vh;
+  padding: 35px 24px;
+  background:
+    radial-gradient(circle at top left, #f2e7e9 0, transparent 32%),
+    var(--fundo);
+  color: var(--cinza-escuro);
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.5;
+}
+
+/* ACESSIBILIDADE */
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 20px;
+  z-index: 999;
+  padding: 12px 18px;
+  background: var(--vinho);
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 15px;
 }
 
 /* CONTAINER */
 
 .container {
-    width: 100%;
-    max-width: 1500px;
-    margin: auto;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
 }
 
 /* =========================================
@@ -60,107 +86,123 @@ body {
 ========================================= */
 
 .topo-painel {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 165px;
+  padding: 35px 42px;
+  margin-bottom: 24px;
 
-    background: linear-gradient(
-        120deg,
-        #501825,
-        #762536 65%,
-        #914657
-    );
+  background: linear-gradient(
+    115deg,
+    var(--vinho-escuro),
+    var(--vinho),
+    #8c3a4d
+  );
 
-    color: white;
-    padding: 32px 38px;
-    border: 1px solid rgba(210, 213, 220, .65);
-    border-radius: 13px;
-    margin-bottom: 25px;
+  border: 1px solid rgba(220, 220, 225, 0.7);
+  border-radius: 19px;
+  box-shadow: var(--sombra-forte);
+  color: white;
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-
-    box-shadow:
-        0 12px 30px rgba(80, 24, 37, .13),
-        inset 0 1px 0 rgba(255,255,255,.16);
+.topo-painel::before {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  right: -55px;
+  top: -125px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
 }
 
 .topo-painel::after {
-    content: "";
-    position: absolute;
-    width: 280px;
-    height: 280px;
-    border: 1px solid rgba(220,223,230,.15);
-    border-radius: 50%;
-    right: -100px;
-    top: -150px;
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: 75px;
+  bottom: -125px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
 }
 
 .topo-painel h2 {
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -.7px;
+  position: relative;
+  z-index: 1;
+  font-size: clamp(25px, 3vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.8px;
 }
 
 .topo-subtitulo {
-    font-size: 12px;
-    color: rgba(255,255,255,.76);
-    margin-top: 9px;
-    line-height: 1.6;
+  position: relative;
+  z-index: 1;
+  margin-top: 7px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 14px;
+  letter-spacing: 0.4px;
 }
 
 /* =========================================
-   CONSULTÓRIO
+   CONFIGURAÇÃO DO CONSULTÓRIO
 ========================================= */
 
 .consultorio-box {
-    background: white;
-    border: 1px solid var(--prata);
-    border-radius: var(--raio);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 13px;
 
-    padding: 20px 25px;
-    margin-bottom: 25px;
+  padding: 19px 23px;
+  margin-bottom: 25px;
 
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-
-    box-shadow: var(--sombra);
+  background: var(--branco);
+  border: var(--borda);
+  border-left: 4px solid var(--vinho);
+  border-radius: 13px;
+  box-shadow: var(--sombra);
 }
 
 .consultorio-box label {
-    font-size: 13px;
-    color: var(--cinza-escuro);
-    font-weight: 600;
+  color: var(--cinza-escuro);
+  font-size: 14px;
+}
+
+.consultorio-box strong {
+  color: var(--vinho);
 }
 
 .consultorio-box input {
-    width: 85px;
-    padding: 11px;
+  width: 85px;
+  height: 39px;
+  padding: 8px 12px;
 
-    border: 1px solid #c8cbd1;
-    border-radius: 7px;
+  color: var(--vinho);
+  background: #fafafa;
 
-    font-size: 14px;
-    font-weight: 700;
-    text-align: center;
+  border: 1px solid var(--prata);
+  border-radius: 8px;
 
-    color: var(--vinho);
-    background: #fafafa;
-    outline: none;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+
+  outline: none;
+  transition: 0.2s;
 }
 
 .consultorio-box input:focus {
-    border-color: var(--vinho);
-    box-shadow: 0 0 0 3px rgba(118,37,54,.08);
+  border-color: var(--vinho);
+  box-shadow: 0 0 0 3px rgba(118, 37, 54, 0.10);
 }
 
 .consultorio-box span {
-    color: var(--cinza);
-    font-size: 11px;
+  color: var(--cinza);
+  font-size: 12px;
 }
 
 /* =========================================
@@ -168,208 +210,201 @@ body {
 ========================================= */
 
 .medico-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 25px;
-    align-items: start;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(350px, 0.95fr);
+  align-items: start;
+  gap: 25px;
 }
-
-/* =========================================
-   PAINÉIS
-========================================= */
 
 .coluna-fila,
 .coluna-form {
-    background: white;
-    border: 1px solid var(--prata);
-    border-radius: 13px;
+  min-width: 0;
+  padding: 27px;
 
-    padding: 28px;
+  background: var(--branco);
+  border: 1px solid var(--prata-clara);
+  border-radius: var(--raio);
 
-    box-shadow: var(--sombra);
-    min-width: 0;
-    position: relative;
+  box-shadow: var(--sombra);
 }
 
-.coluna-fila::before,
-.coluna-form::before {
-    content: "";
-    position: absolute;
-    top: -1px;
-    left: 25%;
-    width: 50%;
-    height: 2px;
-
-    background: linear-gradient(
-        90deg,
-        transparent,
-        #aeb3bb,
-        #f5f5f6,
-        #aeb3bb,
-        transparent
-    );
-}
+/* =========================================
+   CABEÇALHOS DAS SEÇÕES
+========================================= */
 
 .secao-cabecalho {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
 
-    margin-bottom: 25px;
-    flex-wrap: wrap;
+  padding-bottom: 21px;
+  margin-bottom: 20px;
+
+  border-bottom: 1px solid var(--prata-clara);
 }
 
 .sobretitulo {
-    color: var(--vinho);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    margin-bottom: 9px;
+  margin-bottom: 5px;
+  color: var(--vinho-medio);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
 }
 
-.secao-cabecalho h3,
-.coluna-fila > h3,
-.coluna-form > h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: #30343c;
-    letter-spacing: -.5px;
+.secao-cabecalho h3 {
+  color: var(--vinho-escuro);
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .secao-descricao {
-    font-size: 11px;
-    color: #9298a2;
-    margin-top: 8px;
-    line-height: 1.6;
+  margin-top: 5px;
+  color: var(--cinza);
+  font-size: 13px;
 }
 
 .indicador-atualizacao {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--verde);
-    background: #edf7f1;
-    border: 1px solid #d6e9dc;
-    padding: 9px 12px;
-    border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 11px;
+
+  color: var(--verde);
+  background: #edf7f1;
+  border: 1px solid #d5ebdd;
+  border-radius: 20px;
+
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 /* =========================================
-   FILA DE PACIENTES
+   FILA DE ESPERA
 ========================================= */
 
 #triagens {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  min-height: 100px;
 }
 
-.carregando,
+.carregando {
+  padding: 25px;
+  color: var(--cinza);
+  text-align: center;
+  font-size: 13px;
+}
+
 .fila-vazia {
-    padding: 35px 15px;
-    text-align: center;
-
-    color: #9298a2;
-    background: #fafafa;
-
-    border: 1px dashed #c9cbd0;
-    border-radius: 9px;
-
-    font-size: 12px;
+  padding: 35px 20px;
+  color: var(--cinza);
+  background: #fafafa;
+  border: 1px dashed var(--prata);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 13px;
 }
 
 /* =========================================
-   CARD DO PACIENTE
+   CARDS DOS PACIENTES
 ========================================= */
 
 .card-paciente {
-    position: relative;
+  position: relative;
+  padding: 19px;
 
-    background: #fff;
-    border: 1px solid #e1e2e5;
-    border-left: 4px solid #bfc2c9;
+  background: #fff;
+  border: 1px solid var(--prata-clara);
+  border-left: 4px solid var(--prata);
+  border-radius: 12px;
 
-    border-radius: 9px;
-    padding: 19px;
-
-    transition: .25s;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .card-paciente:hover {
-    border-color: #c8aab0;
-    box-shadow: 0 8px 22px rgba(40, 30, 35, .06);
-    transform: translateY(-2px);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(50, 40, 45, 0.08);
 }
 
 .card-paciente.selecionado {
-    background: #fcf7f8;
-    border: 1px solid #c9a2aa;
-    border-left: 5px solid var(--vinho);
-
-    box-shadow: 0 5px 18px rgba(118,37,54,.07);
+  background: #fffafb;
+  border-color: #d9b9c0;
+  border-left: 4px solid var(--vinho);
+  box-shadow: 0 0 0 3px rgba(118, 37, 54, 0.06);
 }
 
-/* CABEÇALHO DO CARD */
-
 .paciente-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 
-    margin-bottom: 15px;
+  margin-bottom: 13px;
 }
 
 .paciente-header strong {
-    font-size: 14px;
-    color: #30343c;
-    font-weight: 700;
+  color: var(--vinho-escuro);
+  font-size: 16px;
+  font-weight: 700;
 }
 
-/* =========================================
-   CLASSIFICAÇÃO DE RISCO
-========================================= */
+/* CLASSIFICAÇÃO DE RISCO */
 
 .badge-risco {
-    padding: 6px 11px;
-    border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-    font-size: 9px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: .4px;
+  min-width: 75px;
+  padding: 5px 11px;
+
+  border-radius: 20px;
+
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .badge-risco.vermelho {
-    background: #ffe8eb;
-    color: #bd1f37;
-    border: 1px solid #f1c8ce;
+  color: #a82335;
+  background: #fdebed;
+  border: 1px solid #f3cbd0;
 }
 
 .badge-risco.amarelo {
-    background: #fff4df;
-    color: #966300;
-    border: 1px solid #eed9a9;
+  color: #956311;
+  background: #fff5df;
+  border: 1px solid #f0dfb7;
 }
 
 .badge-risco.verde {
-    background: #e9f5ed;
-    color: #237b4e;
-    border: 1px solid #d0e8d8;
+  color: #24764f;
+  background: #eaf6ef;
+  border: 1px solid #cce8d7;
 }
 
-/* INFORMAÇÕES */
+/* INFORMAÇÕES DO PACIENTE */
 
 .informacao-paciente {
-    font-size: 11px;
-    color: #747b86;
-    line-height: 1.9;
-    margin-bottom: 7px;
+  margin-top: 8px;
+  color: var(--cinza);
+  font-size: 12px;
+  overflow-wrap: anywhere;
 }
 
 .informacao-paciente b {
-    color: #343a44;
-    font-weight: 700;
+  color: var(--cinza-escuro);
+  font-weight: 700;
 }
 
 /* =========================================
@@ -377,45 +412,47 @@ body {
 ========================================= */
 
 .botoes-card {
-    display: flex;
-    gap: 9px;
-    margin-top: 17px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 17px;
 }
 
 .btn-tv,
 .btn-atender {
-    flex: 1;
+  flex: 1;
+  min-height: 38px;
+  padding: 9px 12px;
 
-    padding: 11px 9px;
-    border-radius: 7px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
 
-    font-size: 10px;
-    font-weight: 700;
-
-    cursor: pointer;
-    transition: .2s;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .btn-tv {
-    background: var(--vinho);
-    border: 1px solid var(--vinho);
-    color: white;
+  color: white;
+  background: var(--vinho);
+  border: 1px solid var(--vinho);
 }
 
 .btn-tv:hover {
-    background: var(--vinho-escuro);
-    border-color: var(--prata);
+  background: var(--vinho-escuro);
+  border-color: var(--vinho-escuro);
 }
 
 .btn-atender {
-    background: #f5f5f6;
-    border: 1px solid #d4d6db;
-    color: #4c535e;
+  color: var(--vinho);
+  background: white;
+  border: 1px solid var(--prata);
 }
 
 .btn-atender:hover {
-    background: #e9e9ec;
-    border-color: var(--prata-escura);
+  color: white;
+  background: var(--vinho-medio);
+  border-color: var(--vinho-medio);
 }
 
 /* =========================================
@@ -423,99 +460,63 @@ body {
 ========================================= */
 
 .btn-atualizar {
-    width: 100%;
-    margin-top: 20px;
+  width: 100%;
+  min-height: 43px;
+  margin-top: 19px;
+  padding: 11px 15px;
 
-    background: #f7eff1;
-    color: var(--vinho);
+  color: var(--vinho);
+  background: var(--vinho-claro);
+  border: 1px solid #e5cbd1;
+  border-radius: 9px;
 
-    border: 1px solid #c9b3b8;
-    border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
 
-    padding: 13px;
-    font-size: 11px;
-    font-weight: 800;
-
-    cursor: pointer;
-    transition: .2s;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .btn-atualizar:hover {
-    background: var(--vinho);
-    border-color: var(--prata);
-    color: white;
+  color: white;
+  background: var(--vinho);
+  border-color: var(--vinho);
 }
 
 /* =========================================
-   BOTÃO ABRIR TELA DA TV
+   BOTÃO DA TV
 ========================================= */
 
 .acoes-fila {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  margin-top: 13px;
+  padding-top: 17px;
+  border-top: 1px solid var(--prata-clara);
 }
 
-.acoes-fila .btn-tv-header {
-    position: relative;
+.btn-tv-header {
+  width: 100%;
+  min-height: 43px;
+  padding: 11px 15px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
+  color: var(--cinza-escuro);
+  background: #f5f5f6;
+  border: 1px solid var(--prata);
+  border-radius: 9px;
 
-    width: 100%;
-    min-height: 55px;
-    padding: 15px 22px;
+  font-size: 12px;
+  font-weight: 700;
 
-    background: linear-gradient(
-        115deg,
-        #501825,
-        #762536 65%,
-        #914657
-    );
-
-    color: white;
-
-    border: 1px solid #aeb3bb;
-    border-radius: 8px;
-
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: .3px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 5px 14px rgba(80,24,37,.15),
-        inset 0 1px 0 rgba(255,255,255,.17);
-
-    transition: .25s;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.acoes-fila .btn-tv-header:hover {
-    background: linear-gradient(
-        115deg,
-        #42121e,
-        #682032
-    );
-
-    border-color: #d4d6db;
-
-    box-shadow: 0 9px 22px rgba(80,24,37,.21);
-
-    transform: translateY(-2px);
-}
-
-.acoes-fila .btn-tv-header:active {
-    transform: scale(.98);
-}
-
-.acoes-fila .btn-tv-header:focus-visible {
-    outline: 3px solid rgba(118,37,54,.20);
-    outline-offset: 4px;
+.btn-tv-header:hover {
+  color: var(--vinho);
+  background: white;
+  border-color: var(--vinho);
+  box-shadow: 0 4px 12px rgba(118, 37, 54, 0.08);
 }
 
 /* =========================================
@@ -523,79 +524,89 @@ body {
 ========================================= */
 
 .alerta-alergia {
-    display: none;
+  display: none;
+  margin-bottom: 20px;
+  padding: 15px 17px;
 
-    background: #fff3f3;
-    color: #a51e32;
+  color: #96303b;
+  background: #fff0f1;
+  border: 1px solid #efc6cb;
+  border-left: 4px solid #bd3545;
+  border-radius: 9px;
 
-    border: 1px solid #e5c2c8;
-    border-left: 4px solid #a51e32;
+  font-size: 13px;
+  line-height: 1.6;
+}
 
-    border-radius: 8px;
-    padding: 15px;
-
-    margin-bottom: 20px;
-
-    font-size: 12px;
-    line-height: 1.7;
+.alerta-alergia strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
 }
 
 /* =========================================
-   FORMULÁRIO
+   FORMULÁRIO MÉDICO
 ========================================= */
 
 .form-group {
-    margin-bottom: 21px;
+  margin-bottom: 20px;
 }
 
 .form-group label {
-    display: block;
+  display: block;
+  margin-bottom: 8px;
 
-    color: #444b56;
-    font-size: 11px;
-    font-weight: 700;
-
-    margin-bottom: 9px;
+  color: var(--cinza-escuro);
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-    width: 100%;
+  display: block;
+  width: 100%;
+  min-height: 45px;
+  padding: 12px 14px;
 
-    padding: 14px 15px;
+  color: var(--cinza-escuro);
+  background: #fcfcfd;
 
-    border: 1px solid #d5d6da;
-    border-radius: 7px;
+  border: 1px solid var(--prata-clara);
+  border-radius: 9px;
 
-    background: #fcfbfa;
-    color: #343a44;
+  font-family: inherit;
+  font-size: 13px;
 
-    font-family: inherit;
-    font-size: 12px;
+  outline: none;
+  transition: 0.2s;
+}
 
-    outline: none;
-    transition: .2s;
+.form-group textarea {
+  min-height: 115px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #a0a5ad;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    border-color: var(--vinho);
-    background: white;
-
-    box-shadow: 0 0 0 3px rgba(118,37,54,.08);
+  background: white;
+  border-color: var(--vinho);
+  box-shadow: 0 0 0 3px rgba(118, 37, 54, 0.09);
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: #a5a9b0;
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 110px;
-    line-height: 1.7;
+.form-group input[readonly] {
+  color: var(--vinho);
+  background: #f8f5f6;
+  border-color: #e4d4d8;
+  font-weight: 600;
+  cursor: default;
 }
 
 /* =========================================
@@ -603,177 +614,156 @@ body {
 ========================================= */
 
 .botoes-acao {
-    display: flex;
-    gap: 12px;
-    margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: 25px;
 }
 
 .btn-pdf,
 .btn-salvar {
-    flex: 1;
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 18px;
 
-    border-radius: 7px;
+  border-radius: 9px;
 
-    padding: 15px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
 
-    font-size: 11px;
-    font-weight: 800;
-
-    cursor: pointer;
-    transition: .25s;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .btn-pdf {
-    background: #f3f3f4;
-    color: #454b55;
-    border: 1px solid #c9cbd0;
+  color: var(--vinho);
+  background: white;
+  border: 1px solid var(--prata);
 }
 
 .btn-pdf:hover {
-    background: #e6e6e9;
-    border-color: var(--prata-escura);
-    transform: translateY(-2px);
+  background: var(--vinho-claro);
+  border-color: var(--vinho);
 }
 
 .btn-salvar {
-    background: linear-gradient(
-        120deg,
-        #762536,
-        #501825
-    );
-
-    color: white;
-    border: 1px solid #a18a90;
-
-    box-shadow: 0 5px 15px rgba(80,24,37,.13);
+  color: white;
+  background: linear-gradient(
+    110deg,
+    var(--vinho-escuro),
+    var(--vinho)
+  );
+  border: 1px solid var(--vinho);
+  box-shadow: 0 5px 13px rgba(118, 37, 54, 0.16);
 }
 
 .btn-salvar:hover {
-    background: #501825;
-    border-color: #c6c9d0;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(80,24,37,.19);
+  background: var(--vinho-escuro);
+  box-shadow: 0 7px 17px rgba(118, 37, 54, 0.22);
+  transform: translateY(-1px);
 }
 
 /* =========================================
-   TRANSIÇÕES E ACESSIBILIDADE
+   FOCO E INTERAÇÃO
 ========================================= */
-
-button:active {
-    transform: scale(.98);
-}
 
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
-textarea:focus-visible {
-    outline: 3px solid rgba(118,37,54,.20);
-    outline-offset: 2px;
+textarea:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgba(118, 37, 54, 0.25);
+  outline-offset: 3px;
 }
 
-button:disabled {
-    opacity: .6;
-    cursor: not-allowed;
-}
-
-/* LINK DE ACESSIBILIDADE */
-
-.skip-link {
-    position: absolute;
-    left: -9999px;
-    top: 10px;
-    z-index: 1000;
-}
-
-.skip-link:focus {
-    left: 10px;
-    background: white;
-    color: var(--vinho);
-    padding: 12px;
-    border: 1px solid var(--prata);
-    border-radius: 7px;
+button:active {
+  transform: scale(0.98);
 }
 
 /* =========================================
    RESPONSIVIDADE
 ========================================= */
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
+  .medico-grid {
+    grid-template-columns: 1fr;
+  }
 
-    body {
-        padding: 22px;
-    }
-
-    .medico-grid {
-        grid-template-columns: 1fr;
-    }
+  .coluna-fila,
+  .coluna-form {
+    padding: 24px;
+  }
 }
 
 @media (max-width: 600px) {
+  body {
+    padding: 16px 12px;
+  }
 
-    body {
-        padding: 12px;
-    }
+  .topo-painel {
+    min-height: 135px;
+    padding: 25px 22px;
+    border-radius: 14px;
+  }
 
-    .topo-painel {
-        padding: 23px 18px;
-        flex-direction: column;
-        align-items: flex-start;
-        border-radius: 10px;
-    }
+  .topo-painel h2 {
+    font-size: 25px;
+  }
 
-    .topo-painel h2 {
-        font-size: 22px;
-    }
+  .consultorio-box {
+    padding: 16px;
+    gap: 10px;
+  }
 
-    .consultorio-box {
-        padding: 17px;
-        gap: 10px;
-    }
+  .consultorio-box span {
+    flex-basis: 100%;
+  }
 
-    .coluna-fila,
-    .coluna-form {
-        padding: 19px;
-        border-radius: 10px;
-    }
+  .coluna-fila,
+  .coluna-form {
+    padding: 19px 15px;
+    border-radius: 13px;
+  }
 
-    .secao-cabecalho h3 {
-        font-size: 19px;
-    }
+  .secao-cabecalho h3 {
+    font-size: 20px;
+  }
 
-    .botoes-card,
-    .botoes-acao {
-        flex-direction: column;
-    }
+  .indicador-atualizacao {
+    font-size: 9px;
+  }
 
-    .btn-tv,
-    .btn-atender,
-    .btn-pdf,
-    .btn-salvar {
-        width: 100%;
-        padding: 14px;
-    }
+  .card-paciente {
+    padding: 15px;
+  }
 
-    .acoes-fila .btn-tv-header {
-        width: 100%;
-        min-height: 54px;
-        padding: 14px;
-    }
+  .botoes-card {
+    flex-direction: column;
+  }
 
-    .indicador-atualizacao {
-        font-size: 9px;
-    }
+  .btn-tv,
+  .btn-atender {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  .botoes-acao {
+    gap: 9px;
+  }
 }
 
-/* REDUÇÃO DE MOVIMENTO */
+/* =========================================
+   REDUÇÃO DE MOVIMENTO
+========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-        animation-duration: .01ms !important;
-    }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
