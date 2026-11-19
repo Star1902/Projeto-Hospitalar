@@ -1,28 +1,34 @@
 
 /* =========================================
    HOSPITAL SENTINELA
-   DESIGN PREMIUM - VERMELHO, BRANCO E CINZA
+   PAINEL MÉDICO - DESIGN PREMIUM
+   VINHO | PRATA | BRANCO | CINZA
 ========================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --vermelho: #a51e32;
-    --vermelho-escuro: #761426;
-    --vermelho-claro: #fff0f2;
+    --vinho: #762536;
+    --vinho-escuro: #501825;
+    --vinho-claro: #f7edef;
+    --vinho-medio: #914657;
+
+    --prata: #bfc2c9;
+    --prata-clara: #e2e3e6;
+    --prata-escura: #9299a3;
 
     --branco: #ffffff;
-    --fundo: #f2f3f5;
-    --cinza: #69717d;
-    --cinza-claro: #e8e9ed;
-    --cinza-escuro: #252a32;
+    --fundo: #f7f7f8;
+    --cinza: #7e8791;
+    --cinza-claro: #e9eaed;
+    --cinza-escuro: #30343c;
 
     --verde: #25845a;
-    --amarelo: #d99a24;
+    --amarelo: #c18a25;
 
-    --sombra: 0 8px 30px rgba(30, 35, 45, 0.07);
-    --borda: 1px solid #e9e9ed;
-    --raio: 16px;
+    --sombra: 0 10px 35px rgba(40, 30, 35, .055);
+    --borda: 1px solid #dfe0e4;
+    --raio: 12px;
 }
 
 /* RESET */
@@ -49,20 +55,25 @@ body {
     margin: auto;
 }
 
-/* CABEÇALHO */
+/* =========================================
+   CABEÇALHO
+========================================= */
 
 .topo-painel {
     position: relative;
+    overflow: hidden;
+
     background: linear-gradient(
         120deg,
-        #761426,
-        #a51e32 65%,
-        #bd3447
+        #501825,
+        #762536 65%,
+        #914657
     );
 
     color: white;
-    padding: 30px 35px;
-    border-radius: 20px;
+    padding: 32px 38px;
+    border: 1px solid rgba(210, 213, 220, .65);
+    border-radius: 13px;
     margin-bottom: 25px;
 
     display: flex;
@@ -70,26 +81,43 @@ body {
     justify-content: space-between;
     gap: 20px;
 
-    box-shadow: 0 12px 30px rgba(118, 20, 38, 0.18);
+    box-shadow:
+        0 12px 30px rgba(80, 24, 37, .13),
+        inset 0 1px 0 rgba(255,255,255,.16);
+}
+
+.topo-painel::after {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border: 1px solid rgba(220,223,230,.15);
+    border-radius: 50%;
+    right: -100px;
+    top: -150px;
+    pointer-events: none;
 }
 
 .topo-painel h2 {
-    font-size: 27px;
-    font-weight: 800;
-    letter-spacing: -0.8px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -.7px;
 }
 
 .topo-subtitulo {
-    font-size: 13px;
-    color: rgba(255,255,255,0.78);
-    margin-top: 7px;
+    font-size: 12px;
+    color: rgba(255,255,255,.76);
+    margin-top: 9px;
+    line-height: 1.6;
 }
 
-/* CONSULTÓRIO */
+/* =========================================
+   CONSULTÓRIO
+========================================= */
 
 .consultorio-box {
     background: white;
-    border: var(--borda);
+    border: 1px solid var(--prata);
     border-radius: var(--raio);
 
     padding: 20px 25px;
@@ -104,31 +132,40 @@ body {
 }
 
 .consultorio-box label {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--cinza-escuro);
+    font-weight: 600;
 }
 
 .consultorio-box input {
     width: 85px;
     padding: 11px;
 
-    border: 1px solid #dedfe4;
-    border-radius: 9px;
+    border: 1px solid #c8cbd1;
+    border-radius: 7px;
 
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     text-align: center;
 
-    color: var(--vermelho);
+    color: var(--vinho);
     background: #fafafa;
+    outline: none;
+}
+
+.consultorio-box input:focus {
+    border-color: var(--vinho);
+    box-shadow: 0 0 0 3px rgba(118,37,54,.08);
 }
 
 .consultorio-box span {
     color: var(--cinza);
-    font-size: 12px;
+    font-size: 11px;
 }
 
-/* GRID PRINCIPAL */
+/* =========================================
+   GRID PRINCIPAL
+========================================= */
 
 .medico-grid {
     display: grid;
@@ -137,18 +174,40 @@ body {
     align-items: start;
 }
 
-/* PAINÉIS */
+/* =========================================
+   PAINÉIS
+========================================= */
 
 .coluna-fila,
 .coluna-form {
     background: white;
-    border: var(--borda);
-    border-radius: 18px;
+    border: 1px solid var(--prata);
+    border-radius: 13px;
 
     padding: 28px;
 
     box-shadow: var(--sombra);
     min-width: 0;
+    position: relative;
+}
+
+.coluna-fila::before,
+.coluna-form::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 25%;
+    width: 50%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #aeb3bb,
+        #f5f5f6,
+        #aeb3bb,
+        transparent
+    );
 }
 
 .secao-cabecalho {
@@ -162,38 +221,42 @@ body {
 }
 
 .sobretitulo {
-    color: var(--vermelho);
+    color: var(--vinho);
     font-size: 10px;
     font-weight: 800;
-    letter-spacing: 1.8px;
-    margin-bottom: 8px;
+    letter-spacing: 2px;
+    margin-bottom: 9px;
 }
 
 .secao-cabecalho h3,
 .coluna-fila > h3,
 .coluna-form > h3 {
-    font-size: 21px;
-    font-weight: 800;
-    color: #272c35;
-    letter-spacing: -0.5px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #30343c;
+    letter-spacing: -.5px;
 }
 
 .secao-descricao {
-    font-size: 12px;
+    font-size: 11px;
     color: #9298a2;
-    margin-top: 7px;
+    margin-top: 8px;
+    line-height: 1.6;
 }
 
 .indicador-atualizacao {
     font-size: 10px;
     font-weight: 700;
     color: var(--verde);
-    background: #eaf7f0;
+    background: #edf7f1;
+    border: 1px solid #d6e9dc;
     padding: 9px 12px;
     border-radius: 30px;
 }
 
-/* FILA DE PACIENTES */
+/* =========================================
+   FILA DE PACIENTES
+========================================= */
 
 #triagens {
     display: flex;
@@ -209,37 +272,41 @@ body {
     color: #9298a2;
     background: #fafafa;
 
-    border: 1px dashed #dedfe4;
-    border-radius: 12px;
+    border: 1px dashed #c9cbd0;
+    border-radius: 9px;
 
-    font-size: 13px;
+    font-size: 12px;
 }
 
-/* CARD DO PACIENTE */
+/* =========================================
+   CARD DO PACIENTE
+========================================= */
 
 .card-paciente {
     position: relative;
 
-    background: #ffffff;
-    border: 1px solid #e9e9ed;
-    border-left: 4px solid #b9bdc5;
+    background: #fff;
+    border: 1px solid #e1e2e5;
+    border-left: 4px solid #bfc2c9;
 
-    border-radius: 13px;
+    border-radius: 9px;
     padding: 19px;
 
-    transition: 0.25s;
+    transition: .25s;
 }
 
 .card-paciente:hover {
-    border-color: #d7b2b9;
-    box-shadow: 0 8px 22px rgba(40, 40, 50, 0.07);
+    border-color: #c8aab0;
+    box-shadow: 0 8px 22px rgba(40, 30, 35, .06);
     transform: translateY(-2px);
 }
 
 .card-paciente.selecionado {
-    background: #fff8f9;
-    border: 1px solid #dba1aa;
-    border-left: 5px solid var(--vermelho);
+    background: #fcf7f8;
+    border: 1px solid #c9a2aa;
+    border-left: 5px solid var(--vinho);
+
+    box-shadow: 0 5px 18px rgba(118,37,54,.07);
 }
 
 /* CABEÇALHO DO CARD */
@@ -254,43 +321,49 @@ body {
 }
 
 .paciente-header strong {
-    font-size: 15px;
-    color: #282d36;
-    font-weight: 800;
+    font-size: 14px;
+    color: #30343c;
+    font-weight: 700;
 }
 
-/* CLASSIFICAÇÃO DE RISCO */
+/* =========================================
+   CLASSIFICAÇÃO DE RISCO
+========================================= */
 
 .badge-risco {
     padding: 6px 11px;
     border-radius: 30px;
 
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: .4px;
 }
 
 .badge-risco.vermelho {
-    background: #ffe5e8;
+    background: #ffe8eb;
     color: #bd1f37;
+    border: 1px solid #f1c8ce;
 }
 
 .badge-risco.amarelo {
-    background: #fff3d8;
-    color: #a36b00;
+    background: #fff4df;
+    color: #966300;
+    border: 1px solid #eed9a9;
 }
 
 .badge-risco.verde {
-    background: #e3f5eb;
+    background: #e9f5ed;
     color: #237b4e;
+    border: 1px solid #d0e8d8;
 }
 
 /* INFORMAÇÕES */
 
 .informacao-paciente {
-    font-size: 12px;
+    font-size: 11px;
     color: #747b86;
-    line-height: 1.8;
+    line-height: 1.9;
     margin-bottom: 7px;
 }
 
@@ -299,7 +372,9 @@ body {
     font-weight: 700;
 }
 
-/* BOTÕES DOS CARDS */
+/* =========================================
+   BOTÕES DOS CARDS
+========================================= */
 
 .botoes-card {
     display: flex;
@@ -312,57 +387,62 @@ body {
     flex: 1;
 
     padding: 11px 9px;
-    border-radius: 9px;
+    border-radius: 7px;
 
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
 
     cursor: pointer;
-    transition: 0.2s;
+    transition: .2s;
 }
 
 .btn-tv {
-    background: var(--vermelho);
-    border: 1px solid var(--vermelho);
+    background: var(--vinho);
+    border: 1px solid var(--vinho);
     color: white;
 }
 
 .btn-tv:hover {
-    background: var(--vermelho-escuro);
+    background: var(--vinho-escuro);
+    border-color: var(--prata);
 }
 
 .btn-atender {
-    background: #f3f3f5;
-    border: 1px solid #e5e5e9;
+    background: #f5f5f6;
+    border: 1px solid #d4d6db;
     color: #4c535e;
 }
 
 .btn-atender:hover {
-    background: #e7e7eb;
+    background: #e9e9ec;
+    border-color: var(--prata-escura);
 }
 
-/* BOTÃO ATUALIZAR */
+/* =========================================
+   BOTÃO ATUALIZAR
+========================================= */
 
 .btn-atualizar {
     width: 100%;
     margin-top: 20px;
 
-    background: #f9f0f1;
-    color: var(--vermelho);
+    background: #f7eff1;
+    color: var(--vinho);
 
-    border: 1px solid #f0d8dc;
-    border-radius: 10px;
+    border: 1px solid #c9b3b8;
+    border-radius: 8px;
 
     padding: 13px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
 
     cursor: pointer;
-    transition: 0.2s;
+    transition: .2s;
 }
 
 .btn-atualizar:hover {
-    background: var(--vermelho);
+    background: var(--vinho);
+    border-color: var(--prata);
     color: white;
 }
 
@@ -386,80 +466,83 @@ body {
     gap: 12px;
 
     width: 100%;
-    min-height: 56px;
+    min-height: 55px;
     padding: 15px 22px;
 
     background: linear-gradient(
         115deg,
-        #761426,
-        #a51e32 65%,
-        #bd3447
+        #501825,
+        #762536 65%,
+        #914657
     );
 
-    color: #ffffff;
+    color: white;
 
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 12px;
+    border: 1px solid #aeb3bb;
+    border-radius: 8px;
 
     font-family: inherit;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 800;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 
     cursor: pointer;
 
     box-shadow:
-        0 5px 14px rgba(165, 30, 50, 0.18),
-        inset 0 1px 0 rgba(255,255,255,0.15);
+        0 5px 14px rgba(80,24,37,.15),
+        inset 0 1px 0 rgba(255,255,255,.17);
 
-    transition:
-        background 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.25s ease;
+    transition: .25s;
 }
 
 .acoes-fila .btn-tv-header:hover {
     background: linear-gradient(
         115deg,
-        #5e1020,
-        #861629
+        #42121e,
+        #682032
     );
 
-    box-shadow: 0 9px 22px rgba(118, 20, 38, 0.25);
+    border-color: #d4d6db;
 
-    transform: translateY(-3px);
+    box-shadow: 0 9px 22px rgba(80,24,37,.21);
+
+    transform: translateY(-2px);
 }
 
 .acoes-fila .btn-tv-header:active {
-    transform: translateY(0) scale(0.98);
+    transform: scale(.98);
 }
 
 .acoes-fila .btn-tv-header:focus-visible {
-    outline: 3px solid rgba(165, 30, 50, 0.25);
+    outline: 3px solid rgba(118,37,54,.20);
     outline-offset: 4px;
 }
 
-/* ALERTA DE ALERGIA */
+/* =========================================
+   ALERTA DE ALERGIA
+========================================= */
 
 .alerta-alergia {
     display: none;
 
-    background: #fff0f0;
+    background: #fff3f3;
     color: #a51e32;
 
-    border: 1px solid #f2c5cb;
-    border-left: 5px solid #c5223c;
+    border: 1px solid #e5c2c8;
+    border-left: 4px solid #a51e32;
 
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 15px;
 
     margin-bottom: 20px;
 
-    font-size: 13px;
-    line-height: 1.6;
+    font-size: 12px;
+    line-height: 1.7;
 }
 
-/* FORMULÁRIO */
+/* =========================================
+   FORMULÁRIO
+========================================= */
 
 .form-group {
     margin-bottom: 21px;
@@ -469,7 +552,7 @@ body {
     display: block;
 
     color: #444b56;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
 
     margin-bottom: 9px;
@@ -482,26 +565,26 @@ body {
 
     padding: 14px 15px;
 
-    border: 1px solid #e0e1e5;
-    border-radius: 10px;
+    border: 1px solid #d5d6da;
+    border-radius: 7px;
 
-    background: #fafafa;
+    background: #fcfbfa;
     color: #343a44;
 
     font-family: inherit;
-    font-size: 13px;
+    font-size: 12px;
 
     outline: none;
-    transition: 0.2s;
+    transition: .2s;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    border-color: var(--vermelho);
+    border-color: var(--vinho);
     background: white;
 
-    box-shadow: 0 0 0 3px rgba(165, 30, 50, 0.09);
+    box-shadow: 0 0 0 3px rgba(118,37,54,.08);
 }
 
 .form-group input::placeholder,
@@ -512,10 +595,12 @@ body {
 .form-group textarea {
     resize: vertical;
     min-height: 110px;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
-/* BOTÕES DE AÇÃO */
+/* =========================================
+   BOTÕES DE AÇÃO
+========================================= */
 
 .botoes-acao {
     display: flex;
@@ -527,62 +612,67 @@ body {
 .btn-salvar {
     flex: 1;
 
-    border: none;
-    border-radius: 10px;
+    border-radius: 7px;
 
     padding: 15px 12px;
 
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
 
     cursor: pointer;
-    transition: 0.25s;
+    transition: .25s;
 }
 
 .btn-pdf {
-    background: #f0f0f2;
+    background: #f3f3f4;
     color: #454b55;
-    border: 1px solid #e3e3e7;
+    border: 1px solid #c9cbd0;
 }
 
 .btn-pdf:hover {
-    background: #e3e3e7;
+    background: #e6e6e9;
+    border-color: var(--prata-escura);
     transform: translateY(-2px);
 }
 
 .btn-salvar {
     background: linear-gradient(
         120deg,
-        #a51e32,
-        #80172a
+        #762536,
+        #501825
     );
 
     color: white;
-    box-shadow: 0 5px 15px rgba(165, 30, 50, 0.17);
+    border: 1px solid #a18a90;
+
+    box-shadow: 0 5px 15px rgba(80,24,37,.13);
 }
 
 .btn-salvar:hover {
-    background: #761426;
+    background: #501825;
+    border-color: #c6c9d0;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(165, 30, 50, 0.24);
+    box-shadow: 0 8px 20px rgba(80,24,37,.19);
 }
 
-/* TRANSIÇÕES E ACESSIBILIDADE */
+/* =========================================
+   TRANSIÇÕES E ACESSIBILIDADE
+========================================= */
 
 button:active {
-    transform: scale(0.98);
+    transform: scale(.98);
 }
 
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-    outline: 3px solid rgba(165, 30, 50, 0.25);
+    outline: 3px solid rgba(118,37,54,.20);
     outline-offset: 2px;
 }
 
 button:disabled {
-    opacity: 0.6;
+    opacity: .6;
     cursor: not-allowed;
 }
 
@@ -598,14 +688,18 @@ button:disabled {
 .skip-link:focus {
     left: 10px;
     background: white;
-    color: var(--vermelho);
+    color: var(--vinho);
     padding: 12px;
-    border-radius: 8px;
+    border: 1px solid var(--prata);
+    border-radius: 7px;
 }
 
-/* RESPONSIVIDADE */
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
 
 @media (max-width: 1000px) {
+
     body {
         padding: 22px;
     }
@@ -616,6 +710,7 @@ button:disabled {
 }
 
 @media (max-width: 600px) {
+
     body {
         padding: 12px;
     }
@@ -624,7 +719,7 @@ button:disabled {
         padding: 23px 18px;
         flex-direction: column;
         align-items: flex-start;
-        border-radius: 14px;
+        border-radius: 10px;
     }
 
     .topo-painel h2 {
@@ -639,7 +734,7 @@ button:disabled {
     .coluna-fila,
     .coluna-form {
         padding: 19px;
-        border-radius: 14px;
+        border-radius: 10px;
     }
 
     .secao-cabecalho h3 {
@@ -670,14 +765,15 @@ button:disabled {
     }
 }
 
-/* REDUZ ANIMAÇÕES PARA QUEM PREFERIR */
+/* REDUÇÃO DE MOVIMENTO */
 
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
         scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
     }
 }
