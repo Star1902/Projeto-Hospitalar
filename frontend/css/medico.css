@@ -1,8 +1,9 @@
 
-/* =========================================
-   HOSPITAL SENTINELA — PAINEL MÉDICO
-   Identidade: Vinho | Branco | Prata
-========================================= */
+/* ==========================================
+   HOSPITAL SENTINELA
+   PAINEL MÉDICO — IDENTIDADE PREMIUM
+   Vinho | Branco | Prata
+========================================== */
 
 :root {
   --vinho: #762536;
@@ -28,11 +29,13 @@
   --sombra: 0 8px 28px rgba(38, 30, 35, 0.07);
   --sombra-forte: 0 14px 35px rgba(80, 24, 37, 0.13);
 
-  --borda: 1px solid #e2e3e6;
+  --borda: 1px solid var(--prata-clara);
   --raio: 16px;
 }
 
-/* RESET */
+/* ==========================================
+   RESET E CONFIGURAÇÕES GERAIS
+========================================== */
 
 * {
   margin: 0;
@@ -47,9 +50,11 @@ html {
 body {
   min-height: 100vh;
   padding: 35px 24px;
+
   background:
     radial-gradient(circle at top left, #f2e7e9 0, transparent 32%),
     var(--fundo);
+
   color: var(--cinza-escuro);
   font-family: "Segoe UI", Arial, sans-serif;
   line-height: 1.5;
@@ -62,10 +67,13 @@ body {
   top: -100px;
   left: 20px;
   z-index: 999;
+
   padding: 12px 18px;
-  background: var(--vinho);
+
   color: white;
+  background: var(--vinho);
   border-radius: 8px;
+
   text-decoration: none;
 }
 
@@ -81,19 +89,23 @@ body {
   margin: 0 auto;
 }
 
-/* =========================================
-   CABEÇALHO
-========================================= */
+/* ==========================================
+   CABEÇALHO INSTITUCIONAL
+========================================== */
 
 .topo-painel {
   position: relative;
   overflow: hidden;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 165px;
+
+  min-height: 175px;
   padding: 35px 42px;
   margin-bottom: 24px;
+
+  color: white;
 
   background: linear-gradient(
     115deg,
@@ -104,81 +116,186 @@ body {
 
   border: 1px solid rgba(220, 220, 225, 0.7);
   border-radius: 19px;
+
   box-shadow: var(--sombra-forte);
-  color: white;
 }
 
 .topo-painel::before {
   content: "";
+
   position: absolute;
-  width: 260px;
-  height: 260px;
-  right: -55px;
-  top: -125px;
+  width: 280px;
+  height: 280px;
+
+  right: -65px;
+  top: -135px;
+
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 50%;
 }
 
 .topo-painel::after {
   content: "";
+
   position: absolute;
-  width: 180px;
-  height: 180px;
+  width: 190px;
+  height: 190px;
+
   right: 75px;
-  bottom: -125px;
+  bottom: -135px;
+
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 50%;
 }
 
-.topo-painel h2 {
+.topo-identidade {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
   position: relative;
   z-index: 1;
+}
+
+.marca-medica {
+  width: 58px;
+  height: 58px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.12);
+
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.topo-instituicao {
+  margin-bottom: 4px;
+
+  color: #ead9dd;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.topo-texto h1 {
   font-size: clamp(25px, 3vw, 34px);
+  line-height: 1.2;
   font-weight: 700;
   letter-spacing: -0.8px;
 }
 
 .topo-subtitulo {
-  position: relative;
-  z-index: 1;
   margin-top: 7px;
+
   color: rgba(255, 255, 255, 0.78);
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 0.4px;
 }
 
-/* =========================================
+.topo-status {
+  position: absolute;
+  right: 35px;
+  bottom: 30px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 11px;
+}
+
+.status-indicador,
+.indicador-ponto {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+  background: #9bd4ae;
+}
+
+/* ==========================================
    CONFIGURAÇÃO DO CONSULTÓRIO
-========================================= */
+========================================== */
 
 .consultorio-box {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 13px;
+  gap: 18px;
 
   padding: 19px 23px;
   margin-bottom: 25px;
 
   background: var(--branco);
+
   border: var(--borda);
   border-left: 4px solid var(--vinho);
   border-radius: 13px;
+
   box-shadow: var(--sombra);
 }
 
-.consultorio-box label {
-  color: var(--cinza-escuro);
-  font-size: 14px;
+.consultorio-informacao {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-right: auto;
 }
 
-.consultorio-box strong {
+.consultorio-icone {
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 11px;
+
   color: var(--vinho);
+  background: var(--vinho-claro);
+
+  font-size: 22px;
 }
 
-.consultorio-box input {
+.consultorio-informacao strong {
+  color: var(--vinho-escuro);
+  font-size: 13px;
+}
+
+.consultorio-informacao p {
+  margin-top: 3px;
+  color: var(--cinza);
+  font-size: 11px;
+}
+
+.consultorio-controle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.consultorio-controle label {
+  color: var(--cinza-escuro);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.consultorio-controle input {
   width: 85px;
   height: 39px;
+
   padding: 8px 12px;
 
   color: var(--vinho);
@@ -195,23 +312,30 @@ body {
   transition: 0.2s;
 }
 
-.consultorio-box input:focus {
+.consultorio-controle input:focus {
   border-color: var(--vinho);
   box-shadow: 0 0 0 3px rgba(118, 37, 54, 0.10);
 }
 
-.consultorio-box span {
+.consultorio-controle span {
+  flex-basis: 100%;
+  text-align: right;
+
   color: var(--cinza);
-  font-size: 12px;
+  font-size: 10px;
 }
 
-/* =========================================
+/* ==========================================
    GRID PRINCIPAL
-========================================= */
+========================================== */
 
 .medico-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(350px, 0.95fr);
+
+  grid-template-columns:
+    minmax(0, 1.05fr)
+    minmax(350px, 0.95fr);
+
   align-items: start;
   gap: 25px;
 }
@@ -219,18 +343,20 @@ body {
 .coluna-fila,
 .coluna-form {
   min-width: 0;
+
   padding: 27px;
 
   background: var(--branco);
+
   border: 1px solid var(--prata-clara);
   border-radius: var(--raio);
 
   box-shadow: var(--sombra);
 }
 
-/* =========================================
+/* ==========================================
    CABEÇALHOS DAS SEÇÕES
-========================================= */
+========================================== */
 
 .secao-cabecalho {
   display: flex;
@@ -247,13 +373,14 @@ body {
 
 .sobretitulo {
   margin-bottom: 5px;
+
   color: var(--vinho-medio);
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.8px;
 }
 
-.secao-cabecalho h3 {
+.secao-cabecalho h2 {
   color: var(--vinho-escuro);
   font-size: 23px;
   font-weight: 700;
@@ -262,8 +389,9 @@ body {
 
 .secao-descricao {
   margin-top: 5px;
+
   color: var(--cinza);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .indicador-atualizacao {
@@ -275,6 +403,7 @@ body {
 
   color: var(--verde);
   background: #edf7f1;
+
   border: 1px solid #d5ebdd;
   border-radius: 20px;
 
@@ -283,19 +412,40 @@ body {
   white-space: nowrap;
 }
 
-/* =========================================
+.indicador-ponto {
+  display: inline-block;
+}
+
+/* ETIQUETA DO PRONTUÁRIO */
+
+.etiqueta-clinica {
+  padding: 6px 11px;
+
+  color: var(--vinho);
+  background: var(--vinho-claro);
+
+  border: 1px solid #ead5da;
+  border-radius: 20px;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* ==========================================
    FILA DE ESPERA
-========================================= */
+========================================== */
 
 #triagens {
   display: flex;
   flex-direction: column;
   gap: 13px;
+
   min-height: 100px;
 }
 
 .carregando {
   padding: 25px;
+
   color: var(--cinza);
   text-align: center;
   font-size: 13px;
@@ -303,23 +453,28 @@ body {
 
 .fila-vazia {
   padding: 35px 20px;
+
   color: var(--cinza);
   background: #fafafa;
+
   border: 1px dashed var(--prata);
   border-radius: 12px;
+
   text-align: center;
   font-size: 13px;
 }
 
-/* =========================================
+/* ==========================================
    CARDS DOS PACIENTES
-========================================= */
+========================================== */
 
 .card-paciente {
   position: relative;
+
   padding: 19px;
 
   background: #fff;
+
   border: 1px solid var(--prata-clara);
   border-left: 4px solid var(--prata);
   border-radius: 12px;
@@ -337,8 +492,10 @@ body {
 
 .card-paciente.selecionado {
   background: #fffafb;
+
   border-color: #d9b9c0;
   border-left: 4px solid var(--vinho);
+
   box-shadow: 0 0 0 3px rgba(118, 37, 54, 0.06);
 }
 
@@ -358,7 +515,9 @@ body {
   font-weight: 700;
 }
 
-/* CLASSIFICAÇÃO DE RISCO */
+/* ==========================================
+   CLASSIFICAÇÃO DE RISCO
+========================================== */
 
 .badge-risco {
   display: inline-flex;
@@ -393,12 +552,16 @@ body {
   border: 1px solid #cce8d7;
 }
 
-/* INFORMAÇÕES DO PACIENTE */
+/* ==========================================
+   INFORMAÇÕES DO PACIENTE
+========================================== */
 
 .informacao-paciente {
   margin-top: 8px;
+
   color: var(--cinza);
   font-size: 12px;
+
   overflow-wrap: anywhere;
 }
 
@@ -407,24 +570,27 @@ body {
   font-weight: 700;
 }
 
-/* =========================================
+/* ==========================================
    BOTÕES DOS CARDS
-========================================= */
+========================================== */
 
 .botoes-card {
   display: flex;
   flex-wrap: wrap;
   gap: 9px;
+
   margin-top: 17px;
 }
 
 .btn-tv,
 .btn-atender {
   flex: 1;
+
   min-height: 38px;
   padding: 9px 12px;
 
   border-radius: 8px;
+
   font-size: 11px;
   font-weight: 700;
 
@@ -455,18 +621,25 @@ body {
   border-color: var(--vinho-medio);
 }
 
-/* =========================================
+/* ==========================================
    BOTÃO ATUALIZAR
-========================================= */
+========================================== */
 
 .btn-atualizar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
   width: 100%;
   min-height: 43px;
+
   margin-top: 19px;
   padding: 11px 15px;
 
   color: var(--vinho);
   background: var(--vinho-claro);
+
   border: 1px solid #e5cbd1;
   border-radius: 9px;
 
@@ -477,31 +650,57 @@ body {
   transition: 0.2s;
 }
 
+.btn-atualizar span {
+  font-size: 18px;
+}
+
 .btn-atualizar:hover {
   color: white;
   background: var(--vinho);
   border-color: var(--vinho);
 }
 
-/* =========================================
-   BOTÃO DA TV
-========================================= */
+/* ==========================================
+   PAINEL DA TV
+========================================== */
 
 .acoes-fila {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+
   margin-top: 13px;
   padding-top: 17px;
+
   border-top: 1px solid var(--prata-clara);
 }
 
+.tv-descricao {
+  margin-right: auto;
+}
+
+.tv-descricao strong {
+  color: var(--vinho-escuro);
+  font-size: 12px;
+}
+
+.tv-descricao span {
+  display: block;
+  margin-top: 3px;
+
+  color: var(--cinza);
+  font-size: 11px;
+}
+
 .btn-tv-header {
-  width: 100%;
   min-height: 43px;
   padding: 11px 15px;
 
   color: var(--cinza-escuro);
   background: #f5f5f6;
+
   border: 1px solid var(--prata);
   border-radius: 9px;
 
@@ -516,22 +715,25 @@ body {
   color: var(--vinho);
   background: white;
   border-color: var(--vinho);
+
   box-shadow: 0 4px 12px rgba(118, 37, 54, 0.08);
 }
 
-/* =========================================
+/* ==========================================
    ALERTA DE ALERGIA
-========================================= */
+========================================== */
 
 .alerta-alergia {
   display: none;
+
   margin-bottom: 20px;
   padding: 15px 17px;
 
   color: #96303b;
   background: #fff0f1;
+
   border: 1px solid #efc6cb;
-  border-left: 4px solid #bd3545;
+  border-left: 4px solid var(--vermelho);
   border-radius: 9px;
 
   font-size: 13px;
@@ -541,12 +743,51 @@ body {
 .alerta-alergia strong {
   display: block;
   margin-bottom: 4px;
+
   font-size: 12px;
 }
 
-/* =========================================
+/* ==========================================
+   IDENTIFICAÇÃO DO FORMULÁRIO
+========================================== */
+
+.formulario-identificacao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin: 23px 0 18px;
+  padding-bottom: 11px;
+
+  border-bottom: 1px solid var(--prata-clara);
+
+  color: var(--vinho-escuro);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.formulario-identificacao:first-child {
+  margin-top: 0;
+}
+
+.formulario-numero {
+  display: grid;
+  place-items: center;
+
+  width: 26px;
+  height: 26px;
+
+  border-radius: 8px;
+
+  background: var(--vinho-claro);
+  color: var(--vinho);
+
+  font-size: 10px;
+}
+
+/* ==========================================
    FORMULÁRIO MÉDICO
-========================================= */
+========================================== */
 
 .form-group {
   margin-bottom: 20px;
@@ -554,6 +795,7 @@ body {
 
 .form-group label {
   display: block;
+
   margin-bottom: 8px;
 
   color: var(--cinza-escuro);
@@ -561,12 +803,18 @@ body {
   font-weight: 700;
 }
 
+.campo-obrigatorio {
+  color: var(--vinho);
+}
+
 .form-group input,
 .form-group select,
 .form-group textarea {
   display: block;
+
   width: 100%;
   min-height: 45px;
+
   padding: 12px 14px;
 
   color: var(--cinza-escuro);
@@ -597,33 +845,53 @@ body {
 .form-group select:focus,
 .form-group textarea:focus {
   background: white;
+
   border-color: var(--vinho);
+
   box-shadow: 0 0 0 3px rgba(118, 37, 54, 0.09);
 }
 
 .form-group input[readonly] {
   color: var(--vinho);
   background: #f8f5f6;
+
   border-color: #e4d4d8;
+
   font-weight: 600;
   cursor: default;
 }
 
-/* =========================================
+.form-group small {
+  display: block;
+
+  margin-top: 6px;
+
+  color: var(--cinza);
+  font-size: 10px;
+}
+
+/* ==========================================
    BOTÕES DE AÇÃO
-========================================= */
+========================================== */
 
 .botoes-acao {
   display: flex;
   flex-direction: column;
   gap: 11px;
+
   margin-top: 25px;
 }
 
 .btn-pdf,
 .btn-salvar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
   width: 100%;
   min-height: 46px;
+
   padding: 12px 18px;
 
   border-radius: 9px;
@@ -649,24 +917,77 @@ body {
 
 .btn-salvar {
   color: white;
+
   background: linear-gradient(
     110deg,
     var(--vinho-escuro),
     var(--vinho)
   );
+
   border: 1px solid var(--vinho);
+
   box-shadow: 0 5px 13px rgba(118, 37, 54, 0.16);
 }
 
 .btn-salvar:hover {
   background: var(--vinho-escuro);
+
   box-shadow: 0 7px 17px rgba(118, 37, 54, 0.22);
+
   transform: translateY(-1px);
 }
 
-/* =========================================
-   FOCO E INTERAÇÃO
-========================================= */
+.aviso-formulario {
+  margin-top: 16px;
+
+  color: var(--cinza);
+  font-size: 10px;
+  text-align: center;
+}
+
+.aviso-formulario span {
+  color: var(--vinho);
+}
+
+/* ==========================================
+   RODAPÉ INSTITUCIONAL
+========================================== */
+
+.rodape-painel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+
+  margin-top: 28px;
+  padding: 20px 5px;
+
+  border-top: 1px solid var(--prata-clara);
+}
+
+.rodape-painel strong {
+  display: block;
+
+  color: var(--vinho);
+  font-size: 10px;
+  letter-spacing: 1.4px;
+}
+
+.rodape-painel span {
+  color: var(--cinza);
+  font-size: 10px;
+}
+
+.rodape-versao {
+  padding: 6px 10px;
+
+  border: 1px solid var(--prata-clara);
+  border-radius: 20px;
+}
+
+/* ==========================================
+   ACESSIBILIDADE E INTERAÇÕES
+========================================== */
 
 button:focus-visible,
 input:focus-visible,
@@ -681,11 +1002,12 @@ button:active {
   transform: scale(0.98);
 }
 
-/* =========================================
-   RESPONSIVIDADE
-========================================= */
+/* ==========================================
+   RESPONSIVIDADE — TABLETS
+========================================== */
 
 @media (max-width: 1050px) {
+
   .medico-grid {
     grid-template-columns: 1fr;
   }
@@ -694,30 +1016,65 @@ button:active {
   .coluna-form {
     padding: 24px;
   }
+
 }
 
+/* ==========================================
+   RESPONSIVIDADE — CELULARES
+========================================== */
+
 @media (max-width: 600px) {
+
   body {
     padding: 16px 12px;
   }
 
   .topo-painel {
-    min-height: 135px;
-    padding: 25px 22px;
+    min-height: 150px;
+    padding: 25px 20px;
     border-radius: 14px;
   }
 
-  .topo-painel h2 {
-    font-size: 25px;
+  .topo-identidade {
+    gap: 12px;
+  }
+
+  .marca-medica {
+    width: 48px;
+    height: 48px;
+    font-size: 17px;
+  }
+
+  .topo-texto h1 {
+    font-size: 24px;
+  }
+
+  .topo-instituicao {
+    font-size: 9px;
+  }
+
+  .topo-status {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: 18px;
   }
 
   .consultorio-box {
     padding: 16px;
-    gap: 10px;
+    gap: 14px;
   }
 
-  .consultorio-box span {
+  .consultorio-informacao {
     flex-basis: 100%;
+  }
+
+  .consultorio-controle {
+    width: 100%;
+  }
+
+  .consultorio-controle span {
+    text-align: left;
   }
 
   .coluna-fila,
@@ -726,7 +1083,7 @@ button:active {
     border-radius: 13px;
   }
 
-  .secao-cabecalho h3 {
+  .secao-cabecalho h2 {
     font-size: 20px;
   }
 
@@ -748,16 +1105,34 @@ button:active {
     min-height: 42px;
   }
 
+  .acoes-fila {
+    align-items: stretch;
+  }
+
+  .tv-descricao {
+    flex-basis: 100%;
+  }
+
+  .btn-tv-header {
+    width: 100%;
+  }
+
   .botoes-acao {
     gap: 9px;
   }
+
+  .rodape-painel {
+    align-items: flex-start;
+  }
+
 }
 
-/* =========================================
+/* ==========================================
    REDUÇÃO DE MOVIMENTO
-========================================= */
+========================================== */
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -766,4 +1141,5 @@ button:active {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+
 }
