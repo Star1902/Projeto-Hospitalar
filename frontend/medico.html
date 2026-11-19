@@ -1,32 +1,38 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#9f1d2d">
+<meta name="description" content="Painel de atendimento médico do Hospital Sentinela.">
 
-<title>Painel Médico</title>
+<title>Painel Médico | Hospital Sentinela</title>
 
 <link rel="stylesheet" href="./css/medico.css">
 </head>
 
 <body>
 
+<a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+
 <div class="container">
 
-  <div class="topo-painel">
-
+  <header class="topo-painel">
     <h2>🩺 Painel Médico</h2>
 
     <button
       class="btn-tv-header"
-      onclick="window.open('tv.html','_blank')">
+      type="button"
+      aria-label="Abrir painel da televisão em uma nova aba"
+      onclick="window.open('tv.html','_blank','noopener,noreferrer')">
       📺 Abrir Tela da TV
     </button>
 
-  </div>
+    <p class="topo-subtitulo">Central de atendimento clínico</p>
+  </header>
 
-
-  <div class="consultorio-box">
+  <section class="consultorio-box" aria-label="Configuração do consultório">
 
     <label for="consultorio-num">
       <strong>Meu Consultório:</strong>
@@ -35,57 +41,69 @@
     <input
       type="text"
       id="consultorio-num"
-      value="01">
+      value="01"
+      inputmode="numeric"
+      autocomplete="off"
+      aria-describedby="ajuda-consultorio">
 
-    <span>
+    <span id="ajuda-consultorio">
       Número enviado para a TV ao chamar.
     </span>
 
-  </div>
+  </section>
 
+  <main class="medico-grid" id="conteudo-principal">
 
-  <div class="medico-grid">
+    <!-- COLUNA DA FILA -->
 
-    <!-- =====================================================
-         COLUNA DA FILA
-         ===================================================== -->
+    <section class="coluna-fila" aria-labelledby="titulo-fila">
 
-    <div class="coluna-fila">
+      <div class="secao-cabecalho">
+        <div>
+          <p class="sobretitulo">ACOMPANHAMENTO</p>
+          <h3 id="titulo-fila">Fila de Espera</h3>
+          <p class="secao-descricao">Pacientes aguardando atendimento médico.</p>
+        </div>
 
-      <h3>Fila de Espera</h3>
+        <span class="indicador-atualizacao" aria-label="Atualização automática">
+          ● Atualização automática
+        </span>
+      </div>
 
-      <div id="triagens">
-        <p class="carregando">
+      <div id="triagens" aria-live="polite" aria-busy="false">
+        <p class="carregando" role="status">
           Carregando...
         </p>
       </div>
 
       <button
+        type="button"
         class="btn-atualizar"
         onclick="carregar()">
         🔄 Atualizar Fila
       </button>
 
-    </div>
+    </section>
 
+    <!-- COLUNA DO ATENDIMENTO -->
 
-    <!-- =====================================================
-         COLUNA DO ATENDIMENTO
-         ===================================================== -->
+    <section class="coluna-form" aria-labelledby="titulo-atendimento">
 
-    <div class="coluna-form">
-
-      <h3>Atendimento Médico</h3>
+      <div class="secao-cabecalho">
+        <div>
+          <p class="sobretitulo">REGISTRO CLÍNICO</p>
+          <h3 id="titulo-atendimento">Atendimento Médico</h3>
+          <p class="secao-descricao">Registre a avaliação e finalize a consulta.</p>
+        </div>
+      </div>
 
       <div
         id="alertaAlergia"
         class="alerta-alergia">
       </div>
 
-
       <div class="form-group">
-
-        <label>
+        <label for="paciente">
           Paciente Selecionado *
         </label>
 
@@ -93,43 +111,32 @@
           id="paciente"
           placeholder="Selecione um paciente na lista"
           readonly>
-
       </div>
 
-
       <div class="form-group">
-
-        <label>
+        <label for="diagnostico">
           Diagnóstico / Hipótese Diagnóstica *
         </label>
 
         <input
           id="diagnostico"
           placeholder="Informe o diagnóstico">
-
       </div>
 
-
       <div class="form-group">
-
-        <label>
+        <label for="medicacao">
           Prescrição / Medicação *
         </label>
 
         <select id="medicacao">
-
           <option value="">
             Selecione a medicação
           </option>
-
         </select>
-
       </div>
 
-
       <div class="form-group">
-
-        <label>
+        <label for="obs">
           Observações / Recomendações Médicas
         </label>
 
@@ -137,19 +144,19 @@
           id="obs"
           rows="4"
           placeholder="Anotações da consulta ou recomendações de alta..."></textarea>
-
       </div>
-
 
       <div class="botoes-acao">
 
         <button
+          type="button"
           class="btn-pdf"
           onclick="gerarPDFAlta()">
           📄 Gerar Alta (PDF)
         </button>
 
         <button
+          type="button"
           class="btn-salvar"
           onclick="salvar()">
           Finalizar Consulta
@@ -157,12 +164,11 @@
 
       </div>
 
-    </div>
+    </section>
 
-  </div>
+  </main>
 
 </div>
-
 
 <script>
 
@@ -184,7 +190,6 @@ function carregar() {
           !t.status
       );
 
-
       fila.sort((a, b) => {
 
         const peso = {
@@ -200,14 +205,12 @@ function carregar() {
 
       });
 
-
       triagensCarregadas = fila;
 
       const div =
         document.getElementById("triagens");
 
       div.innerHTML = "";
-
 
       if (fila.length === 0) {
 
@@ -219,17 +222,14 @@ function carregar() {
         return;
       }
 
-
       fila.forEach((t, index) => {
 
         const ehSelecionado =
           pacienteSelecionado &&
           pacienteSelecionado.id === t.id;
 
-
         const divCard =
           document.createElement("div");
-
 
         divCard.className =
           `card-paciente ${
@@ -237,7 +237,6 @@ function carregar() {
               ? "selecionado"
               : ""
           }`;
-
 
         divCard.innerHTML = `
 
@@ -253,12 +252,10 @@ function carregar() {
 
           </div>
 
-
           <p class="informacao-paciente">
             <b>Sintoma:</b>
             ${t.sintoma || "Não informado"}
           </p>
-
 
           <p class="informacao-paciente">
             <b>Temp:</b>
@@ -269,7 +266,6 @@ function carregar() {
             <b>Alergia:</b>
             ${t.alergia || "Nenhuma"}
           </p>
-
 
           <div class="botoes-card">
 
@@ -288,7 +284,6 @@ function carregar() {
           </div>
 
         `;
-
 
         div.appendChild(divCard);
 
@@ -316,7 +311,6 @@ function chamarESelecionar(index) {
     document.getElementById(
       "consultorio-num"
     ).value || "01";
-
 
   fetch("/tv/chamar", {
 
@@ -352,11 +346,9 @@ function selecionar(index) {
 
   pacienteSelecionado = t;
 
-
   document.getElementById(
     "paciente"
   ).value = t.nome;
-
 
   document.getElementById(
     "obs"
@@ -365,12 +357,10 @@ function selecionar(index) {
       ? `[Triagem]: ${t.observacao}\n`
       : "";
 
-
   const divAlerta =
     document.getElementById(
       "alertaAlergia"
     );
-
 
   if (
     t.alergia &&
@@ -392,7 +382,6 @@ function selecionar(index) {
 
   }
 
-
   carregar();
 
 }
@@ -411,12 +400,10 @@ function carregarMedicacoes() {
           "medicacao"
         );
 
-
       select.innerHTML =
         `<option value="">
           Selecione a medicação
         </option>`;
-
 
       data.forEach(med => {
 
@@ -460,7 +447,6 @@ function gerarPDFAlta() {
       "obs"
     ).value;
 
-
   if (!paciente) {
 
     alert(
@@ -469,7 +455,6 @@ function gerarPDFAlta() {
 
     return;
   }
-
 
   const dadosAlta = {
 
@@ -497,7 +482,6 @@ function gerarPDFAlta() {
     obs
 
   };
-
 
   fetch("/gerar-pdf-alta", {
 
@@ -556,7 +540,6 @@ function gerarPDFNativoNavegador(dados) {
       "_blank"
     );
 
-
   win.document.write(`
 
     <!DOCTYPE html>
@@ -596,9 +579,7 @@ function gerarPDFNativoNavegador(dados) {
           display: flex;
           justify-content: space-between;
           align-items: center;
-
           border-bottom: 3px solid #0d6efd;
-
           padding-bottom: 15px;
           margin-bottom: 25px;
         }
@@ -617,54 +598,36 @@ function gerarPDFNativoNavegador(dados) {
 
         .document-title {
           text-align: center;
-
           font-size: 18px;
           font-weight: 700;
-
           color: #073763;
-
           margin-bottom: 25px;
-
           background: #eef5fb;
-
           padding: 10px;
-
           border-radius: 6px;
         }
 
         .section-title {
           font-size: 14px;
           font-weight: 700;
-
           color: #0d6efd;
-
           text-transform: uppercase;
-
           margin-bottom: 10px;
-
           border-left: 4px solid #d71920;
-
           padding-left: 8px;
         }
 
         .box {
           background: #f8fafc;
-
           border: 1px solid #d8e2ec;
-
           border-radius: 8px;
-
           padding: 16px;
-
           margin-bottom: 20px;
         }
 
         .grid-2 {
           display: grid;
-
-          grid-template-columns:
-            1fr 1fr;
-
+          grid-template-columns: 1fr 1fr;
           gap: 12px;
         }
 
@@ -685,9 +648,7 @@ function gerarPDFNativoNavegador(dados) {
 
         .signature-container {
           margin-top: 80px;
-
           display: flex;
-
           justify-content: flex-end;
         }
 
@@ -697,9 +658,7 @@ function gerarPDFNativoNavegador(dados) {
         }
 
         .signature-line {
-          border-top:
-            2px solid #cbd5e1;
-
+          border-top: 2px solid #cbd5e1;
           margin-bottom: 8px;
         }
 
@@ -717,7 +676,6 @@ function gerarPDFNativoNavegador(dados) {
       </style>
 
     </head>
-
 
     <body>
 
@@ -770,51 +728,28 @@ function gerarPDFNativoNavegador(dados) {
 
       </div>
 
-
       <div class="document-title">
         Termo de Alta Médica
       </div>
-
 
       <div class="section-title">
         Dados do Paciente
       </div>
 
-
       <div class="box grid-2">
 
         <div class="info-group">
-
-          <strong>
-            Nome:
-          </strong>
-
-          <span>
-            ${dados.paciente}
-          </span>
-
+          <strong>Nome:</strong>
+          <span>${dados.paciente}</span>
         </div>
 
-
         <div class="info-group">
-
-          <strong>
-            Sintoma Apresentado:
-          </strong>
-
-          <span>
-            ${dados.sintoma || "Não informado"}
-          </span>
-
+          <strong>Sintoma Apresentado:</strong>
+          <span>${dados.sintoma || "Não informado"}</span>
         </div>
 
-
         <div class="info-group">
-
-          <strong>
-            Temperatura Aferida:
-          </strong>
-
+          <strong>Temperatura Aferida:</strong>
           <span>
             ${
               dados.temperatura
@@ -822,29 +757,18 @@ function gerarPDFNativoNavegador(dados) {
                 : "—"
             }
           </span>
-
         </div>
 
-
         <div class="info-group">
-
-          <strong>
-            Alergias Registradas:
-          </strong>
-
-          <span>
-            ${dados.alergia || "Nenhuma"}
-          </span>
-
+          <strong>Alergias Registradas:</strong>
+          <span>${dados.alergia || "Nenhuma"}</span>
         </div>
 
       </div>
-
 
       <div class="section-title">
         Avaliação Clínica & Prescrição
       </div>
-
 
       <div class="box">
 
@@ -865,7 +789,6 @@ function gerarPDFNativoNavegador(dados) {
 
         </div>
 
-
         <div class="info-group">
 
           <strong>
@@ -885,11 +808,9 @@ function gerarPDFNativoNavegador(dados) {
 
       </div>
 
-
       <div class="section-title">
         Orientações de Alta
       </div>
-
 
       <div class="box">
 
@@ -905,7 +826,6 @@ function gerarPDFNativoNavegador(dados) {
         </p>
 
       </div>
-
 
       <div class="signature-container">
 
@@ -925,14 +845,11 @@ function gerarPDFNativoNavegador(dados) {
 
       </div>
 
-
       <script>
 
         window.onload =
           function() {
-
             window.print();
-
           };
 
       <\/script>
@@ -970,7 +887,6 @@ function salvar() {
       "obs"
     ).value;
 
-
   if (
     !paciente ||
     !diagnostico ||
@@ -983,7 +899,6 @@ function salvar() {
 
     return;
   }
-
 
   fetch("/consulta", {
 
@@ -1019,7 +934,6 @@ function salvar() {
       "Consulta finalizada com sucesso!"
     );
 
-
     document.getElementById(
       "paciente"
     ).value = "";
@@ -1036,12 +950,10 @@ function salvar() {
       "obs"
     ).value = "";
 
-
     document.getElementById(
       "alertaAlergia"
     ).style.display =
       "none";
-
 
     pacienteSelecionado = null;
 
