@@ -1,13 +1,13 @@
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color" content="#9f1d2d">
-    <meta name="description" content="Acesso ao Sistema Hospitalar Sentinela.">
+    <meta name="theme-color" content="#762536">
+    <meta name="description" content="Acesso ao Sistema de Gestão Hospitalar Sentinela.">
 
     <link rel="icon" type="image/png" href="/assets/sentinela-icon.png">
 
@@ -30,165 +30,304 @@
 
     <main class="pagina-login">
 
-        <section class="container">
+        <!-- PAINEL INSTITUCIONAL -->
 
-            <div class="logo-hospital">
-                <img
-                    src="/assets/sentinela-icon.png"
-                    alt="Logo do Hospital Sentinela"
-                    onerror="this.style.display='none'">
+        <section class="painel-institucional">
+
+            <div class="marca">
+
+                <div class="marca-icone">
+                    ✚
+                </div>
+
+                <span>
+                    HOSPITAL <strong>SENTINELA</strong>
+                </span>
+
             </div>
 
-            <div class="login-cabecalho">
+            <div class="institucional-conteudo">
 
-                <span class="identificacao">HOSPITAL SENTINELA</span>
+                <span class="etiqueta">
+                    SISTEMA DE GESTÃO HOSPITALAR
+                </span>
 
-                <h1>Bem-vindo!</h1>
+                <h1>
+                    Excelência no cuidado. 
+                    Tecnologia na gestão.
+                </h1>
 
                 <p>
-                    Acesse o sistema hospitalar utilizando
-                    seu usuário e senha.
+                    Uma plataforma integrada para facilitar
+                    a rotina hospitalar, conectar setores e
+                    promover uma gestão mais organizada,
+                    eficiente e segura.
                 </p>
 
             </div>
 
-            <form id="formLogin" onsubmit="event.preventDefault(); login();">
+            <div class="institucional-rodape">
+                <span>✦</span>
+                Cuidado, organização e excelência.
+            </div>
 
-                <div class="campo">
+        </section>
 
-                    <label for="usuario">Usuário</label>
 
-                    <input
-                        id="usuario"
-                        name="usuario"
-                        type="text"
-                        placeholder="Digite seu usuário"
-                        autocomplete="username"
-                        required>
+        <!-- PAINEL DE ACESSO -->
+
+        <section class="painel-acesso">
+
+            <div class="login-card">
+
+                <div class="login-cabecalho">
+
+                    <div class="logo-hospital">
+
+                        <img
+                            src="/assets/sentinela-icon.png"
+                            alt="Logo do Hospital Sentinela"
+                            onerror="this.style.display='none'">
+
+                    </div>
+
+                    <span class="boas-vindas">
+                        ACESSO INSTITUCIONAL
+                    </span>
+
+                    <h2>Bem-vindo(a)</h2>
+
+                    <p>
+                        Entre com suas credenciais para
+                        acessar o sistema hospitalar.
+                    </p>
 
                 </div>
 
-                <div class="campo">
 
-                    <label for="senha">Senha</label>
+                <form id="formLogin">
 
-                    <input
-                        id="senha"
-                        name="senha"
-                        type="password"
-                        placeholder="Digite sua senha"
-                        autocomplete="current-password"
-                        required>
+                    <div class="campo">
+
+                        <label for="usuario">
+                            Usuário
+                        </label>
+
+                        <input
+                            id="usuario"
+                            name="usuario"
+                            type="text"
+                            placeholder="Digite seu usuário"
+                            autocomplete="username"
+                            required>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="senha">
+                            Senha
+                        </label>
+
+                        <input
+                            id="senha"
+                            name="senha"
+                            type="password"
+                            placeholder="Digite sua senha"
+                            autocomplete="current-password"
+                            required>
+
+                    </div>
+
+
+                    <div
+                        id="mensagem-erro"
+                        class="mensagem-erro"
+                        role="alert"
+                        aria-live="polite">
+                    </div>
+
+
+                    <button
+                        class="btn-login"
+                        id="btnEntrar"
+                        type="submit">
+
+                        <span id="textoBotao">
+                            Entrar no sistema
+                        </span>
+
+                        <span aria-hidden="true">
+                            →
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <div class="login-seguranca">
+
+                    <span>▣</span>
+
+                    Acesso restrito a usuários autorizados
 
                 </div>
 
-                <div
-                    id="mensagem-erro"
-                    role="alert"
-                    aria-live="polite">
-                </div>
+            </div>
 
-                <button class="btn-login" type="submit">
-                    Entrar no sistema
-                    <span aria-hidden="true">→</span>
-                </button>
 
-            </form>
-
-            <footer class="login-rodape">
-                <span>Hospital Sentinela</span>
-                <span>•</span>
-                <span>Sistema de Gestão Hospitalar</span>
+            <footer class="rodape-login">
+                © 2026 Hospital Sentinela. Todos os direitos reservados.
             </footer>
 
         </section>
 
-        <div class="assinatura">
-            SISTEMA HOSPITALAR
-        </div>
-
     </main>
 
+
+    <!-- AUTENTICAÇÃO -->
+
     <script>
-        async function login() {
 
-            const usuarioInput = document.getElementById("usuario").value.trim();
-            const senhaInput = document.getElementById("senha").value.trim();
-            const msgErro = document.getElementById("mensagem-erro");
-            const botao = document.querySelector(".btn-login");
+        const formLogin = document.getElementById("formLogin");
 
-            msgErro.textContent = "";
-            msgErro.style.display = "none";
+        const mensagemErro = document.getElementById("mensagem-erro");
+
+        const botao = document.getElementById("btnEntrar");
+
+        const textoBotao = document.getElementById("textoBotao");
+
+
+        formLogin.addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const usuarioInput = document
+                .getElementById("usuario")
+                .value
+                .trim();
+
+            const senhaInput = document
+                .getElementById("senha")
+                .value;
+
+
+            mensagemErro.textContent = "";
+            mensagemErro.classList.remove("visivel");
+
 
             if (!usuarioInput || !senhaInput) {
-                msgErro.textContent = "Preencha usuário e senha.";
-                msgErro.style.display = "block";
+
+                mostrarErro("Preencha usuário e senha.");
+
                 return;
+
             }
 
+
             botao.disabled = true;
-            botao.textContent = "Entrando...";
+
+            textoBotao.textContent = "Verificando acesso...";
+
 
             try {
 
                 const response = await fetch("/login", {
+
                     method: "POST",
+
                     headers: {
                         "Content-Type": "application/json"
                     },
+
                     body: JSON.stringify({
+
                         usuario: usuarioInput,
+
                         senha: senhaInput
+
                     })
+
                 });
 
-                let data;
 
-                try {
-                    data = await response.json();
-                } catch {
-                    throw new Error("Não foi possível interpretar a resposta do servidor.");
-                }
+                const data = await response.json().catch(() => ({}));
+
 
                 if (!response.ok) {
+
                     throw new Error(
                         data.erro || "Usuário ou senha incorretos."
                     );
+
                 }
+
+
+                if (!data.tipo) {
+
+                    throw new Error(
+                        "O servidor não retornou o tipo de usuário."
+                    );
+
+                }
+
 
                 localStorage.setItem(
                     "sentinelaUser",
                     JSON.stringify(data)
                 );
 
-                if (data.tipo === "admin") {
-                    location.href = "admin.html";
 
-                } else if (data.tipo === "farmacia") {
-                    location.href = "farmacia.html";
+                const paginas = {
 
-                } else if (data.tipo === "triagem") {
-                    location.href = "triagem.html";
+                    admin: "admin.html",
 
-                } else if (data.tipo === "medico") {
-                    location.href = "medico.html";
+                    farmacia: "farmacia.html",
 
-                } else {
-                    location.href = "atendimento.html";
-                }
+                    triagem: "triagem.html",
+
+                    medico: "medico.html"
+
+                };
+
+
+                location.href = paginas[data.tipo] || "atendimento.html";
+
 
             } catch (err) {
 
-                msgErro.textContent = err.message;
-                msgErro.style.display = "block";
+                mostrarErro(
+
+                    err.message === "Failed to fetch"
+
+                        ? "Não foi possível conectar ao servidor. Verifique sua conexão."
+
+                        : err.message
+
+                );
+
 
                 botao.disabled = false;
-                botao.innerHTML = 'Entrar no sistema <span aria-hidden="true">→</span>';
+
+                textoBotao.textContent = "Entrar no sistema";
 
             }
 
+        });
+
+
+        function mostrarErro(mensagem) {
+
+            mensagemErro.textContent = mensagem;
+
+            mensagemErro.classList.add("visivel");
+
         }
+
     </script>
+
 
     <script src="/js/theme.js"></script>
 
