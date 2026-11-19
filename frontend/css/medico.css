@@ -1,35 +1,62 @@
 
-/* =========================================
-   CONFIGURAÇÕES GERAIS
-========================================= */
+/* =====================================================
+   HOSPITAL SENTINELA — PAINEL MÉDICO PREMIUM
+   Paleta: Vermelho | Branco | Cinza
+===================================================== */
+
+:root {
+    --vermelho: #b91f32;
+    --vermelho-escuro: #941729;
+    --vermelho-claro: #fff0f1;
+
+    --branco: #ffffff;
+
+    --cinza-fundo: #f3f4f6;
+    --cinza-card: #f9fafb;
+    --cinza-borda: #e5e7eb;
+    --cinza-texto: #6b7280;
+    --cinza-escuro: #252b35;
+
+    --verde: #16834a;
+    --amarelo: #d69b16;
+
+    --sombra:
+        0 8px 30px rgba(31, 41, 55, 0.055);
+}
+
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background: #f1f5f9;
-    color: #1e293b;
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    background: var(--cinza-fundo);
+    color: var(--cinza-escuro);
+
     min-height: 100vh;
-    padding: 30px 20px;
+    padding: 32px;
 }
 
-/* =========================================
-   CONTAINER PRINCIPAL
-========================================= */
+/* =====================================================
+   CONTAINER
+===================================================== */
 
 .container {
     width: 100%;
-    max-width: 1450px;
-    margin: auto;
+    max-width: 1500px;
+    margin: 0 auto;
 }
 
-/* =========================================
+/* =====================================================
    CABEÇALHO
-========================================= */
+===================================================== */
 
 .topo-painel {
     display: flex;
@@ -38,241 +65,279 @@ body {
     flex-wrap: wrap;
     gap: 20px;
 
-    background: #ffffff;
-    padding: 24px 30px;
+    background: var(--branco);
 
-    border-radius: 14px;
-    border: 1px solid #e2e8f0;
+    padding: 27px 32px;
 
-    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+    border: 1px solid var(--cinza-borda);
+    border-top: 4px solid var(--vermelho);
 
-    margin-bottom: 22px;
+    border-radius: 13px;
+
+    box-shadow: var(--sombra);
+
+    margin-bottom: 24px;
 }
 
 .topo-painel h2 {
     font-size: 25px;
-    color: #123b64;
-    font-weight: 700;
+    font-weight: 750;
+
+    color: var(--cinza-escuro);
+    letter-spacing: -0.6px;
 }
 
-/* =========================================
-   BOTÃO TV DO CABEÇALHO
-========================================= */
+/* =====================================================
+   BOTÃO TV
+===================================================== */
 
 .btn-tv-header {
-    background: #123f70;
+    background: var(--vermelho);
     color: white;
 
     border: none;
-    border-radius: 9px;
+    border-radius: 8px;
 
-    padding: 12px 20px;
+    padding: 13px 21px;
 
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
 
     cursor: pointer;
-    transition: 0.25s;
+
+    transition: all .25s ease;
 }
 
 .btn-tv-header:hover {
-    background: #0b2e53;
+    background: var(--vermelho-escuro);
     transform: translateY(-2px);
-    box-shadow: 0 5px 12px rgba(18, 63, 112, 0.2);
+
+    box-shadow: 0 5px 15px rgba(185, 31, 50, .2);
 }
 
-/* =========================================
+/* =====================================================
    CONSULTÓRIO
-========================================= */
+===================================================== */
 
 .consultorio-box {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 15px;
 
-    background: #ffffff;
+    background: var(--branco);
+
+    border: 1px solid var(--cinza-borda);
+    border-radius: 12px;
 
     padding: 20px 25px;
 
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-
     margin-bottom: 25px;
 
-    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.03);
+    box-shadow: var(--sombra);
 }
 
 .consultorio-box strong {
-    color: #123b64;
-    font-size: 15px;
+    color: var(--cinza-escuro);
+    font-size: 14px;
 }
 
 .consultorio-box input {
     width: 85px;
-    padding: 10px;
 
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
+    padding: 11px;
+
+    border: 1px solid var(--cinza-borda);
+    border-radius: 7px;
+
+    background: var(--cinza-card);
+
+    color: var(--vermelho);
 
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 800;
+
     text-align: center;
 
-    color: #123b64;
-    background: #f8fafc;
+    outline: none;
+}
+
+.consultorio-box input:focus {
+    border-color: var(--vermelho);
 }
 
 .consultorio-box span {
-    color: #64748b;
-    font-size: 13px;
+    color: var(--cinza-texto);
+    font-size: 12px;
 }
 
-/* =========================================
+/* =====================================================
    GRID PRINCIPAL
-========================================= */
+===================================================== */
 
 .medico-grid {
     display: grid;
 
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
+    grid-template-columns:
+        minmax(0, .95fr)
+        minmax(0, 1.35fr);
 
-    gap: 25px;
+    gap: 24px;
 
     align-items: start;
 }
 
-/* =========================================
-   COLUNAS
-========================================= */
+/* =====================================================
+   PAINÉIS
+===================================================== */
 
 .coluna-fila,
 .coluna-form {
-    background: #ffffff;
-
-    padding: 25px;
-
-    border-radius: 14px;
-    border: 1px solid #e2e8f0;
-
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
-
     min-width: 0;
+
+    background: var(--branco);
+
+    padding: 27px;
+
+    border: 1px solid var(--cinza-borda);
+    border-radius: 13px;
+
+    box-shadow: var(--sombra);
 }
 
 .coluna-fila h3,
 .coluna-form h3 {
-    color: #123b64;
+    font-size: 18px;
+    font-weight: 750;
 
-    font-size: 19px;
-    font-weight: 700;
+    color: var(--cinza-escuro);
 
     padding-bottom: 17px;
-    margin-bottom: 20px;
+    margin-bottom: 23px;
 
-    border-bottom: 2px solid #eaf0f6;
+    border-bottom: 1px solid var(--cinza-borda);
+
+    position: relative;
 }
 
-/* =========================================
+.coluna-fila h3::after,
+.coluna-form h3::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -1px;
+
+    width: 48px;
+    height: 3px;
+
+    background: var(--vermelho);
+    border-radius: 5px;
+}
+
+/* =====================================================
    FILA DE PACIENTES
-========================================= */
+===================================================== */
 
 #triagens {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 13px;
 
     max-height: 650px;
+
     overflow-y: auto;
 
-    padding: 3px 6px 10px 2px;
+    padding: 2px 6px 10px 2px;
 }
 
 #triagens::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
 }
 
 #triagens::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: #f1f1f1;
     border-radius: 10px;
 }
 
 #triagens::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #c5c5c5;
     border-radius: 10px;
 }
 
-/* =========================================
-   CARD DO PACIENTE
-========================================= */
+/* =====================================================
+   CARD PACIENTE
+===================================================== */
 
 .card-paciente {
-    background: #ffffff;
+    background: #fff;
 
-    border: 1px solid #e2e8f0;
-    border-left: 4px solid #94a3b8;
+    border: 1px solid var(--cinza-borda);
+    border-left: 4px solid #c7c7c7;
 
-    border-radius: 11px;
+    border-radius: 9px;
 
-    padding: 17px;
+    padding: 18px;
 
-    transition: 0.25s;
-
-    box-shadow: 0 2px 7px rgba(15, 23, 42, 0.035);
+    transition: all .25s ease;
 }
 
 .card-paciente:hover {
-    border-color: #93c5fd;
+    border-color: #d9a0a7;
 
     transform: translateY(-2px);
 
-    box-shadow: 0 5px 14px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 7px 18px rgba(31, 41, 55, .07);
 }
 
 .card-paciente.selecionado {
-    background: #eff6ff;
+    background: #fff8f8;
 
-    border: 1px solid #60a5fa;
-    border-left: 5px solid #2563eb;
+    border: 1px solid #e6a6ae;
+    border-left: 5px solid var(--vermelho);
 
-    box-shadow: 0 3px 12px rgba(37, 99, 235, 0.10);
+    box-shadow: 0 4px 15px rgba(185, 31, 50, .08);
 }
 
-/* =========================================
-   CABEÇALHO DO PACIENTE
-========================================= */
+/* =====================================================
+   NOME DO PACIENTE
+===================================================== */
 
 .paciente-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
 
+    gap: 10px;
     margin-bottom: 13px;
 }
 
 .paciente-header strong {
-    color: #123b64;
-    font-size: 16px;
-    font-weight: 700;
+    color: var(--cinza-escuro);
+
+    font-size: 15px;
+    font-weight: 750;
 
     overflow-wrap: anywhere;
 }
 
-/* =========================================
-   CLASSIFICAÇÃO DE RISCO
-========================================= */
+/* =====================================================
+   BADGES DE RISCO
+===================================================== */
 
 .badge-risco {
-    padding: 5px 11px;
+    display: inline-block;
 
-    border-radius: 20px;
+    padding: 6px 11px;
 
-    font-size: 11px;
+    border-radius: 5px;
+
+    font-size: 10px;
     font-weight: 800;
 
     text-transform: uppercase;
-    letter-spacing: 0.4px;
+    letter-spacing: .5px;
 }
 
 .badge-risco.vermelho {
@@ -281,8 +346,8 @@ body {
 }
 
 .badge-risco.amarelo {
-    background: #fef3c7;
-    color: #92400e;
+    background: #fff3cd;
+    color: #966400;
 }
 
 .badge-risco.verde {
@@ -290,73 +355,78 @@ body {
     color: #166534;
 }
 
-/* =========================================
+/* =====================================================
    INFORMAÇÕES DO PACIENTE
-========================================= */
+===================================================== */
 
 .informacao-paciente {
-    font-size: 13px;
-    color: #64748b;
+    font-size: 12px;
 
-    line-height: 1.7;
-    margin-bottom: 7px;
+    color: var(--cinza-texto);
+
+    line-height: 1.8;
+
+    margin-bottom: 5px;
 
     overflow-wrap: anywhere;
 }
 
 .informacao-paciente b {
-    color: #334155;
+    color: #414752;
     font-weight: 700;
 }
 
-/* =========================================
+/* =====================================================
    BOTÕES DOS CARDS
-========================================= */
+===================================================== */
 
 .botoes-card {
     display: flex;
     gap: 9px;
 
-    margin-top: 15px;
+    margin-top: 16px;
 }
 
 .btn-tv,
 .btn-atender {
     flex: 1;
 
-    padding: 10px 8px;
+    padding: 11px 8px;
 
     border: none;
-    border-radius: 7px;
+    border-radius: 6px;
 
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 750;
 
     cursor: pointer;
-    transition: 0.2s;
+
+    transition: all .2s ease;
 }
 
 .btn-tv {
-    background: #123f70;
+    background: var(--vermelho);
     color: white;
 }
 
 .btn-tv:hover {
-    background: #0b2e53;
+    background: var(--vermelho-escuro);
 }
 
 .btn-atender {
-    background: #eaf2fb;
-    color: #174b7d;
+    background: #f0f0f0;
+    color: #414752;
+
+    border: 1px solid #e2e2e2;
 }
 
 .btn-atender:hover {
-    background: #d5e6f8;
+    background: #e5e5e5;
 }
 
-/* =========================================
-   BOTÃO ATUALIZAR
-========================================= */
+/* =====================================================
+   BOTÃO ATUALIZAR FILA
+===================================================== */
 
 .btn-atualizar {
     width: 100%;
@@ -365,205 +435,225 @@ body {
 
     margin-top: 18px;
 
-    background: #f1f5f9;
-    color: #123b64;
+    border: 1px solid var(--cinza-borda);
+    border-radius: 7px;
 
-    border: 1px solid #dbe4ee;
-    border-radius: 9px;
+    background: #f5f5f5;
+    color: #454b55;
 
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
 
     cursor: pointer;
-    transition: 0.2s;
+
+    transition: .2s;
 }
 
 .btn-atualizar:hover {
-    background: #e2eaf3;
+    background: var(--vermelho);
+    border-color: var(--vermelho);
+    color: white;
 }
 
-/* =========================================
-   FILA VAZIA / CARREGANDO
-========================================= */
+/* =====================================================
+   FILA VAZIA
+===================================================== */
 
 .fila-vazia,
 .carregando {
+    padding: 35px 15px;
+
     text-align: center;
 
-    padding: 30px 15px;
-
-    color: #94a3b8;
-    font-size: 14px;
+    color: #999;
+    font-size: 13px;
 }
 
-/* =========================================
+/* =====================================================
    ALERTA DE ALERGIA
-========================================= */
+===================================================== */
 
 .alerta-alergia {
     display: none;
 
+    padding: 17px;
+
+    margin-bottom: 23px;
+
     background: #fff1f2;
+    color: #a7192b;
 
-    color: #be123c;
+    border: 1px solid #f3c1c7;
+    border-left: 5px solid var(--vermelho);
 
-    border: 1px solid #fda4af;
-    border-left: 5px solid #e11d48;
+    border-radius: 8px;
 
-    border-radius: 9px;
-
-    padding: 16px;
-
-    margin-bottom: 22px;
-
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 13px;
+    line-height: 1.7;
 }
 
 .alerta-alergia strong {
     font-weight: 800;
 }
 
-/* =========================================
+/* =====================================================
    FORMULÁRIO
-========================================= */
+===================================================== */
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 21px;
 }
 
 .form-group label {
     display: block;
 
-    color: #334155;
-
-    font-size: 14px;
-    font-weight: 700;
-
     margin-bottom: 9px;
+
+    color: #424751;
+
+    font-size: 13px;
+    font-weight: 750;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
+    display: block;
+
     width: 100%;
 
     padding: 13px 14px;
 
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
+    background: #fafafa;
 
-    background: #f8fafc;
+    border: 1px solid #dedfe2;
+    border-radius: 7px;
 
-    color: #1e293b;
+    color: #333943;
 
-    font-size: 14px;
+    font-size: 13px;
 
     outline: none;
 
-    transition: 0.2s;
+    transition: all .2s ease;
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+    border-color: #b9b9b9;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    border-color: #3b82f6;
+    background: white;
 
-    background: #ffffff;
+    border-color: var(--vermelho);
 
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+    box-shadow: 0 0 0 3px rgba(185, 31, 50, .08);
 }
 
 .form-group input[readonly] {
-    background: #eff6ff;
-    color: #174b7d;
-    font-weight: 600;
+    background: #f5f5f5;
+
+    color: var(--vermelho);
+
+    font-weight: 700;
 
     cursor: default;
 }
 
 .form-group textarea {
     resize: vertical;
-    min-height: 110px;
+
+    min-height: 115px;
 
     line-height: 1.6;
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: #94a3b8;
+    color: #a5a5a5;
 }
 
-/* =========================================
+/* =====================================================
    BOTÕES DE AÇÃO
-========================================= */
+===================================================== */
 
 .botoes-acao {
     display: flex;
-    gap: 12px;
+    gap: 13px;
 
-    margin-top: 25px;
+    margin-top: 28px;
 }
 
 .btn-pdf,
 .btn-salvar {
     flex: 1;
 
-    padding: 14px 12px;
+    padding: 15px 12px;
 
     border: none;
-    border-radius: 9px;
+    border-radius: 7px;
 
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 750;
 
     cursor: pointer;
 
-    transition: 0.25s;
+    transition: all .25s ease;
 }
 
 .btn-pdf {
-    background: #eaf2fb;
-    color: #174b7d;
+    background: #ededed;
+    color: #424751;
+
+    border: 1px solid #dedede;
 }
 
 .btn-pdf:hover {
-    background: #d5e6f8;
+    background: #dedede;
     transform: translateY(-2px);
 }
 
 .btn-salvar {
-    background: #15803d;
-    color: #ffffff;
+    background: var(--vermelho);
+    color: white;
+
+    box-shadow: 0 4px 12px rgba(185, 31, 50, .13);
 }
 
 .btn-salvar:hover {
-    background: #166534;
+    background: var(--vermelho-escuro);
 
     transform: translateY(-2px);
 
-    box-shadow: 0 5px 12px rgba(21, 128, 61, 0.18);
+    box-shadow: 0 7px 17px rgba(185, 31, 50, .2);
 }
 
-/* =========================================
-   RESPONSIVIDADE - TABLETS
-========================================= */
+/* =====================================================
+   RESPONSIVIDADE
+===================================================== */
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
+
+    body {
+        padding: 20px;
+    }
 
     .medico-grid {
         grid-template-columns: 1fr;
     }
 
     #triagens {
-        max-height: 450px;
+        max-height: 500px;
     }
-
 }
 
-/* =========================================
-   RESPONSIVIDADE - CELULARES
-========================================= */
+/* =====================================================
+   CELULARES
+===================================================== */
 
 @media (max-width: 600px) {
 
@@ -572,8 +662,7 @@ body {
     }
 
     .topo-painel {
-        padding: 19px;
-        align-items: flex-start;
+        padding: 20px;
     }
 
     .topo-painel h2 {
@@ -595,7 +684,7 @@ body {
 
     .coluna-fila,
     .coluna-form {
-        padding: 17px;
+        padding: 18px;
     }
 
     .medico-grid {
@@ -610,29 +699,21 @@ body {
         flex-direction: column;
     }
 
-    .btn-tv,
-    .btn-atender,
     .btn-pdf,
     .btn-salvar {
         width: 100%;
-        padding: 13px;
     }
-
-    .paciente-header strong {
-        font-size: 14px;
-    }
-
 }
 
-/* =========================================
+/* =====================================================
    ACESSIBILIDADE
-========================================= */
+===================================================== */
 
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-    outline: 3px solid rgba(59, 130, 246, 0.35);
+    outline: 3px solid rgba(185, 31, 50, .25);
     outline-offset: 2px;
 }
 
@@ -640,7 +721,7 @@ textarea:focus-visible {
     *,
     *::before,
     *::after {
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
+        transition: none !important;
+        animation: none !important;
     }
 }
