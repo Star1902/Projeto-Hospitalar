@@ -1,73 +1,987 @@
-/* ==========================================================================
-   INDEX.CSS - Tela de Login Hospitalar Premium
-   ========================================================================== */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#9f1d2d">
+  <meta name="description" content="Painel de atendimento médico do Hospital Sentinela.">
+
+  <title>Painel Médico | Hospital Sentinela</title>
+
+  <link rel="stylesheet" href="./css/medico.css">
+</head>
+
+<body>
+
+<a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+
+<div class="container">
+
+  <!-- CABEÇALHO -->
+
+  <header class="topo-painel">
+    <div>
+      <h2>🩺 Painel Médico</h2>
+      <p class="topo-subtitulo">
+        Hospital Sentinela · Central de atendimento clínico
+      </p>
+    </div>
+  </header>
+
+
+  <!-- CONFIGURAÇÃO DO CONSULTÓRIO -->
+
+  <section class="consultorio-box" aria-label="Configuração do consultório">
+
+    <label for="consultorio-num">
+      <strong>Meu Consultório:</strong>
+    </label>
+
+    <input
+      type="text"
+      id="consultorio-num"
+      value="01"
+      inputmode="numeric"
+      autocomplete="off"
+      aria-describedby="ajuda-consultorio">
+
+    <span id="ajuda-consultorio">
+      Número enviado para a TV ao chamar.
+    </span>
+
+  </section>
+
+
+  <main class="medico-grid" id="conteudo-principal">
+
+
+    <!-- COLUNA DA FILA -->
+
+    <section class="coluna-fila" aria-labelledby="titulo-fila">
+
+      <div class="secao-cabecalho">
+
+        <div>
+          <p class="sobretitulo">ACOMPANHAMENTO</p>
+
+          <h3 id="titulo-fila">Fila de Espera</h3>
+
+          <p class="secao-descricao">
+            Pacientes aguardando atendimento médico.
+          </p>
+        </div>
+
+        <span
+          class="indicador-atualizacao"
+          aria-label="Atualização automática">
+          ● Atualização automática
+        </span>
+
+      </div>
+
+
+      <!-- LISTA DE PACIENTES -->
+
+      <div id="triagens" aria-live="polite" aria-busy="false">
+
+        <p class="carregando" role="status">
+          Carregando...
+        </p>
+
+      </div>
+
+
+      <!-- BOTÃO ATUALIZAR -->
+
+      <button
+        type="button"
+        class="btn-atualizar"
+        onclick="carregar()">
+        🔄 Atualizar Fila
+      </button>
+
+
+      <!-- BOTÃO DA TV -->
+
+      <div class="acoes-fila">
+
+        <button
+          class="btn-tv-header"
+          type="button"
+          aria-label="Abrir painel da televisão em uma nova aba"
+          onclick="window.open('tv.html','_blank','noopener,noreferrer')">
+          📺 Abrir Tela da TV
+        </button>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- COLUNA DO ATENDIMENTO -->
+
+    <section class="coluna-form" aria-labelledby="titulo-atendimento">
+
+      <div class="secao-cabecalho">
+
+        <div>
+          <p class="sobretitulo">REGISTRO CLÍNICO</p>
+
+          <h3 id="titulo-atendimento">Atendimento Médico</h3>
+
+          <p class="secao-descricao">
+            Registre a avaliação e finalize a consulta.
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- ALERTA DE ALERGIA -->
+
+      <div
+        id="alertaAlergia"
+        class="alerta-alergia">
+      </div>
+
+
+      <!-- PACIENTE SELECIONADO -->
+
+      <div class="form-group">
+
+        <label for="paciente">
+          Paciente Selecionado *
+        </label>
+
+        <input
+          id="paciente"
+          type="text"
+          placeholder="Selecione um paciente na lista"
+          readonly>
+
+      </div>
+
+
+      <!-- DIAGNÓSTICO -->
+
+      <div class="form-group">
+
+        <label for="diagnostico">
+          Diagnóstico / Hipótese Diagnóstica *
+        </label>
+
+        <input
+          id="diagnostico"
+          type="text"
+          placeholder="Informe o diagnóstico"
+          autocomplete="off">
+
+      </div>
+
+
+      <!-- MEDICAÇÃO -->
+
+      <div class="form-group">
+
+        <label for="medicacao">
+          Prescrição / Medicação *
+        </label>
+
+        <select id="medicacao">
+
+          <option value="">
+            Selecione a medicação
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- OBSERVAÇÕES -->
+
+      <div class="form-group">
+
+        <label for="obs">
+          Observações / Recomendações Médicas
+        </label>
+
+        <textarea
+          id="obs"
+          rows="5"
+          placeholder="Anotações da consulta ou recomendações de alta..."></textarea>
+
+      </div>
+
+
+      <!-- BOTÕES DE AÇÃO -->
+
+      <div class="botoes-acao">
+
+        <button
+          type="button"
+          class="btn-pdf"
+          onclick="gerarPDFAlta()">
+          📄 Gerar Alta (PDF)
+        </button>
+
+        <button
+          type="button"
+          class="btn-salvar"
+          onclick="salvar()">
+          ✓ Finalizar Consulta
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+let triagensCarregadas = [];
+let pacienteSelecionado = null;
+
+
+function carregar() {
+
+  fetch("/triagens")
+
+    .then(r => r.json())
+
+    .then(data => {
+
+      const fila = data.filter(
+        t =>
+          t.status === "aguardando_medico" ||
+          !t.status
+      );
+
+
+      fila.sort((a, b) => {
+
+        const peso = {
+          vermelho: 1,
+          amarelo: 2,
+          verde: 3
+        };
+
+        return (
+          (peso[a.risco] || 4) -
+          (peso[b.risco] || 4)
+        );
+
+      });
+
+
+      triagensCarregadas = fila;
+
+      const div = document.getElementById("triagens");
+
+      div.innerHTML = "";
+
+
+      if (fila.length === 0) {
+
+        div.innerHTML = `
+          <p class="fila-vazia">
+            Nenhum paciente na fila de espera.
+          </p>`;
+
+        return;
+      }
+
+
+      fila.forEach((t, index) => {
+
+        const ehSelecionado =
+          pacienteSelecionado &&
+          pacienteSelecionado.id === t.id;
+
+
+        const divCard = document.createElement("div");
+
+        divCard.className =
+          `card-paciente ${
+            ehSelecionado ? "selecionado" : ""
+          }`;
+
+
+        divCard.innerHTML = `
+
+          <div class="paciente-header">
+
+            <strong>
+              ${t.nome}
+            </strong>
+
+            <span class="badge-risco ${t.risco}">
+              ${t.risco || "verde"}
+            </span>
+
+          </div>
+
+
+          <p class="informacao-paciente">
+            <b>Sintoma:</b>
+            ${t.sintoma || "Não informado"}
+          </p>
+
+
+          <p class="informacao-paciente">
+            <b>Temp:</b>
+            ${t.temperatura || "—"}°C
+
+            |
+
+            <b>Alergia:</b>
+            ${t.alergia || "Nenhuma"}
+          </p>
+
+
+          <div class="botoes-card">
+
+            <button
+              class="btn-tv"
+              onclick="chamarESelecionar(${index})">
+              📺 Chamar na TV
+            </button>
+
+            <button
+              class="btn-atender"
+              onclick="selecionar(${index})">
+              Apenas Selecionar
+            </button>
+
+          </div>
+
+        `;
+
+
+        div.appendChild(divCard);
+
+      });
+
+    })
+
+    .catch(err =>
+      console.error("Erro ao carregar fila:", err)
+    );
+
 }
 
-body {
-    background-color: #f0f4f8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+
+
+function chamarESelecionar(index) {
+
+  selecionar(index);
+
+  const t = triagensCarregadas[index];
+
+  const consultorio =
+    document.getElementById("consultorio-num").value || "01";
+
+
+  fetch("/tv/chamar", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+
+      localTipo: "CONSULTÓRIO",
+
+      localNumero: consultorio,
+
+      paciente: t.nome
+
+    })
+
+  });
+
 }
 
-.container {
-    width: 100%;
-    max-width: 360px;
-    padding: 40px 30px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+
+function selecionar(index) {
+
+  const t = triagensCarregadas[index];
+
+  pacienteSelecionado = t;
+
+  document.getElementById("paciente").value = t.nome;
+
+  document.getElementById("obs").value =
+    t.observacao
+      ? `[Triagem]: ${t.observacao}\n`
+      : "";
+
+
+  const divAlerta =
+    document.getElementById("alertaAlergia");
+
+
+  if (
+    t.alergia &&
+    t.alergia.toLowerCase() !== "nenhuma" &&
+    t.alergia.toLowerCase() !== "não"
+  ) {
+
+    divAlerta.style.display = "block";
+
+    divAlerta.innerHTML =
+      "<strong>⚠️ ALERTA DE ALERGIA:</strong> " +
+      t.alergia;
+
+  } else {
+
+    divAlerta.style.display = "none";
+
+  }
+
+
+  carregar();
+
 }
 
-h2 {
-    color: #1a365d;
-    margin-bottom: 24px;
-    font-size: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+
+
+function carregarMedicacoes() {
+
+  fetch("/lista-medicacoes")
+
+    .then(r => r.json())
+
+    .then(data => {
+
+      const select =
+        document.getElementById("medicacao");
+
+
+      select.innerHTML = `
+        <option value="">
+          Selecione a medicação
+        </option>`;
+
+
+      data.forEach(med => {
+
+        const option = document.createElement("option");
+
+        option.value = med;
+        option.textContent = med;
+
+        select.appendChild(option);
+
+      });
+
+    });
+
 }
 
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    font-size: 15px;
-    background-color: #f8fafc;
-    transition: all 0.3s ease;
+
+
+function gerarPDFAlta() {
+
+  const paciente =
+    document.getElementById("paciente").value;
+
+  const diagnostico =
+    document.getElementById("diagnostico").value;
+
+  const medicacao =
+    document.getElementById("medicacao").value;
+
+  const obs =
+    document.getElementById("obs").value;
+
+
+  if (!paciente) {
+
+    alert("Por favor, selecione um paciente da lista.");
+
+    return;
+  }
+
+
+  const dadosAlta = {
+
+    paciente,
+
+    sintoma:
+      pacienteSelecionado
+        ? pacienteSelecionado.sintoma
+        : "",
+
+    temperatura:
+      pacienteSelecionado
+        ? pacienteSelecionado.temperatura
+        : "",
+
+    alergia:
+      pacienteSelecionado
+        ? pacienteSelecionado.alergia
+        : "",
+
+    diagnostico,
+
+    medicacao,
+
+    obs
+
+  };
+
+
+  fetch("/gerar-pdf-alta", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify(dadosAlta)
+
+  })
+
+  .then(async response => {
+
+    if (!response.ok)
+      throw new Error("Erro no servidor ao gerar PDF");
+
+    return response.blob();
+
+  })
+
+  .then(blob => {
+
+    const fileUrl = URL.createObjectURL(blob);
+
+    window.open(fileUrl, "_blank");
+
+  })
+
+  .catch(() => {
+
+    gerarPDFNativoNavegador(dadosAlta);
+
+  });
+
 }
 
-input:focus {
-    outline: none;
-    border-color: #3182ce;
-    background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+
+
+function gerarPDFNativoNavegador(dados) {
+
+  const win = window.open("", "_blank");
+
+  win.document.write(`
+
+    <!DOCTYPE html>
+
+    <html lang="pt-br">
+
+    <head>
+
+      <meta charset="UTF-8">
+
+      <title>
+        Termo de Alta Médica - ${dados.paciente}
+      </title>
+
+      <style>
+
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+          padding: 40px;
+          background-color: #ffffff;
+          color: #263746;
+          line-height: 1.5;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 3px solid #0d6efd;
+          padding-bottom: 15px;
+          margin-bottom: 25px;
+        }
+
+        .header h1 {
+          color: #073763;
+          font-size: 22px;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        .header p {
+          color: #64748b;
+          font-size: 13px;
+        }
+
+        .document-title {
+          text-align: center;
+          font-size: 18px;
+          font-weight: 700;
+          color: #073763;
+          margin-bottom: 25px;
+          background: #eef5fb;
+          padding: 10px;
+          border-radius: 6px;
+        }
+
+        .section-title {
+          font-size: 14px;
+          font-weight: 700;
+          color: #0d6efd;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+          border-left: 4px solid #d71920;
+          padding-left: 8px;
+        }
+
+        .box {
+          background: #f8fafc;
+          border: 1px solid #d8e2ec;
+          border-radius: 8px;
+          padding: 16px;
+          margin-bottom: 20px;
+        }
+
+        .grid-2 {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+
+        .info-group {
+          margin-bottom: 8px;
+        }
+
+        .info-group strong {
+          color: #526273;
+          font-size: 13px;
+        }
+
+        .info-group span {
+          color: #073763;
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .signature-container {
+          margin-top: 80px;
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        .signature-box {
+          text-align: center;
+          width: 280px;
+        }
+
+        .signature-line {
+          border-top: 2px solid #cbd5e1;
+          margin-bottom: 8px;
+        }
+
+        .signature-title {
+          font-size: 14px;
+          font-weight: bold;
+          color: #073763;
+        }
+
+        .signature-sub {
+          font-size: 12px;
+          color: #718096;
+        }
+
+      </style>
+
+    </head>
+
+    <body>
+
+      <div class="header">
+
+        <div>
+
+          <h1>Hospital Sentinela</h1>
+
+          <p>
+            Sistema de Gestão Hospitalar e Prontuário
+          </p>
+
+        </div>
+
+        <div>
+
+          <p>
+
+            <strong>Emissão:</strong>
+
+            ${
+              new Date().toLocaleDateString('pt-BR')
+            }
+
+            às
+
+            ${
+              new Date().toLocaleTimeString(
+                'pt-BR',
+                {
+                  hour: '2-digit',
+                  minute: '2-digit'
+                }
+              )
+            }
+
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="document-title">
+        Termo de Alta Médica
+      </div>
+
+
+      <div class="section-title">
+        Dados do Paciente
+      </div>
+
+
+      <div class="box grid-2">
+
+        <div class="info-group">
+          <strong>Nome:</strong>
+          <span>${dados.paciente}</span>
+        </div>
+
+        <div class="info-group">
+          <strong>Sintoma Apresentado:</strong>
+          <span>${dados.sintoma || "Não informado"}</span>
+        </div>
+
+        <div class="info-group">
+          <strong>Temperatura Aferida:</strong>
+          <span>
+            ${
+              dados.temperatura
+                ? dados.temperatura + " °C"
+                : "—"
+            }
+          </span>
+        </div>
+
+        <div class="info-group">
+          <strong>Alergias Registradas:</strong>
+          <span>${dados.alergia || "Nenhuma"}</span>
+        </div>
+
+      </div>
+
+
+      <div class="section-title">
+        Avaliação Clínica & Prescrição
+      </div>
+
+
+      <div class="box">
+
+        <div class="info-group" style="margin-bottom:12px;">
+
+          <strong>Diagnóstico / Hipótese:</strong>
+
+          <br>
+
+          <span>${dados.diagnostico || "—"}</span>
+
+        </div>
+
+        <div class="info-group">
+
+          <strong>Medicação Prescrita:</strong>
+
+          <br>
+
+          <span>
+            ${
+              dados.medicacao ||
+              "Nenhuma medicação prescrita."
+            }
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="section-title">
+        Orientações de Alta
+      </div>
+
+
+      <div class="box">
+
+        <p>
+          ${
+            dados.obs
+              ? dados.obs.replace(/\n/g, "<br>")
+              : "Paciente recebe alta médica sem intercorrências. Recomenda-se repouso e retorno em caso de novos sintomas."
+          }
+        </p>
+
+      </div>
+
+
+      <div class="signature-container">
+
+        <div class="signature-box">
+
+          <div class="signature-line"></div>
+
+          <div class="signature-title">
+            Dr. Médico Responsável
+          </div>
+
+          <div class="signature-sub">
+            CRM / Registro Profissional
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <script>
+
+        window.onload = function() {
+          window.print();
+        };
+
+      <\/script>
+
+    </body>
+
+    </html>
+
+  `);
+
+
+  win.document.close();
+
 }
 
-button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 15px;
-    background-color: #3182ce;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+
+
+function salvar() {
+
+  const paciente =
+    document.getElementById("paciente").value;
+
+  const diagnostico =
+    document.getElementById("diagnostico").value;
+
+  const medicacao =
+    document.getElementById("medicacao").value;
+
+  const obs =
+    document.getElementById("obs").value;
+
+
+  if (
+    !paciente ||
+    !diagnostico ||
+    !medicacao
+  ) {
+
+    alert("Preencha todos os campos obrigatórios.");
+
+    return;
+  }
+
+
+  fetch("/consulta", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+
+      triagemId:
+        pacienteSelecionado
+          ? pacienteSelecionado.id
+          : null,
+
+      paciente,
+
+      diagnostico,
+
+      medicacao,
+
+      obs
+
+    })
+
+  })
+
+  .then(() => {
+
+    alert("Consulta finalizada com sucesso!");
+
+
+    document.getElementById("paciente").value = "";
+    document.getElementById("diagnostico").value = "";
+    document.getElementById("medicacao").value = "";
+    document.getElementById("obs").value = "";
+
+    document.getElementById("alertaAlergia").style.display = "none";
+
+    pacienteSelecionado = null;
+
+    carregar();
+
+  });
+
 }
 
-button:hover {
-    background-color: #2b6cb0;
-}
+
+
+// INICIALIZAÇÃO DO PAINEL
+
+carregar();
+
+carregarMedicacoes();
+
+setInterval(carregar, 10000);
+
+</script>
+
+</body>
+</html>
