@@ -1,326 +1,380 @@
 
-/* =====================================
-   HOSPITAL SENTINELA - LOGIN
-===================================== */
-
-:root {
-    --vermelho: #a91f32;
-    --vermelho-escuro: #861727;
-    --vermelho-claro: #fff0f1;
-
-    --branco: #ffffff;
-    --fundo: #f3f4f6;
-    --texto: #252b35;
-    --cinza: #737b87;
-    --borda: #e4e6eb;
-
-    --sombra: 0 20px 60px rgba(30, 35, 45, 0.10);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* RESET */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+  --vinho: #762536;
+  --vinho-escuro: #501825;
+  --dourado: #b99b70;
+  --texto: #29313b;
+  --cinza: #7e8791;
+  --borda: #e9e5e2;
+  --fundo: #f8f7f5;
 }
 
 body {
-    min-height: 100vh;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: var(--fundo);
-    color: var(--texto);
+  min-height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--texto);
+  background: var(--fundo);
 }
-
-/* FUNDO DA PÁGINA */
 
 .pagina-login {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
-    padding: 30px 20px;
-
-    background:
-        radial-gradient(
-            circle at 10% 15%,
-            rgba(169, 31, 50, 0.07),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 90% 85%,
-            rgba(169, 31, 50, 0.06),
-            transparent 30%
-        ),
-        var(--fundo);
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.08fr .92fr;
 }
 
-/* CARTÃO DE LOGIN */
+/* LADO INSTITUCIONAL */
 
-.container {
-    width: 100%;
-    max-width: 430px;
-
-    padding: 42px 38px 30px;
-
-    background: var(--branco);
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    border-radius: 18px;
-
-    box-shadow: var(--sombra);
-
-    animation: aparecer 0.5s ease;
+.painel-institucional {
+  min-height: 100vh;
+  padding: 55px 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(120deg, rgba(55, 17, 28, .91), rgba(105, 34, 52, .84)),
+    linear-gradient(135deg, #632032, #8b3548);
 }
 
-/* LOGO */
-
-.logo-hospital {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 22px;
+.painel-institucional::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 50%;
+  right: -260px;
+  bottom: -180px;
 }
 
-.logo-hospital img {
-    width: 75px;
-    height: 75px;
-    object-fit: contain;
+.painel-institucional::after {
+  content: "";
+  position: absolute;
+  width: 430px;
+  height: 430px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 50%;
+  right: -170px;
+  bottom: -90px;
 }
 
-/* CABEÇALHO */
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  z-index: 2;
+  font-size: 16px;
+  letter-spacing: 3px;
+}
+
+.marca strong {
+  font-weight: 800;
+}
+
+.marca-icone {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.4);
+  color: #e3c7a0;
+  font-size: 29px;
+  border-radius: 12px;
+}
+
+.institucional-conteudo {
+  max-width: 550px;
+  position: relative;
+  z-index: 2;
+}
+
+.etiqueta {
+  display: inline-block;
+  color: #dfc49f;
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 27px;
+}
+
+.institucional-conteudo h1 {
+  max-width: 540px;
+  font-family: Georgia, serif;
+  font-size: clamp(39px, 4.2vw, 59px);
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: -.8px;
+  margin-bottom: 25px;
+}
+
+.institucional-conteudo p {
+  max-width: 430px;
+  color: rgba(255,255,255,.76);
+  font-size: 14px;
+  line-height: 2;
+  font-weight: 300;
+}
+
+.institucional-rodape {
+  position: relative;
+  z-index: 2;
+  color: rgba(255,255,255,.65);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.institucional-rodape span {
+  color: #d7b98d;
+  margin-right: 9px;
+}
+
+/* LADO DO LOGIN */
+
+.painel-acesso {
+  min-height: 100vh;
+  padding: 65px 9%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: #fbfaf8;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 410px;
+  padding: 48px 43px;
+  background: #fff;
+  border: 1px solid #eeeae6;
+  border-radius: 5px;
+  box-shadow: 0 20px 65px rgba(55, 35, 30, .055);
+}
 
 .login-cabecalho {
-    text-align: center;
-    margin-bottom: 30px;
+  margin-bottom: 39px;
 }
 
-.identificacao {
-    display: inline-block;
-    margin-bottom: 12px;
-
-    color: var(--vermelho);
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 2px;
+.login-icone {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 29px;
+  background: #f6eff0;
+  color: var(--vinho);
+  border-radius: 50%;
+  font-size: 23px;
 }
 
-.login-cabecalho h1 {
-    font-size: 28px;
-    font-weight: 750;
-    letter-spacing: -0.8px;
-    color: var(--texto);
+.boas-vindas {
+  color: var(--dourado);
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 800;
+}
+
+.login-cabecalho h2 {
+  margin-top: 13px;
+  margin-bottom: 11px;
+  color: #30313a;
+  font-family: Georgia, serif;
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: -.5px;
 }
 
 .login-cabecalho p {
-    max-width: 300px;
-    margin: 10px auto 0;
-
-    color: var(--cinza);
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-/* FORMULÁRIO */
-
-#formLogin {
-    display: flex;
-    flex-direction: column;
-    gap: 19px;
+  color: #92969d;
+  font-size: 12px;
+  line-height: 1.8;
 }
 
 .campo {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  margin-bottom: 23px;
 }
 
 .campo label {
-    font-size: 13px;
-    font-weight: 700;
-    color: #3c434e;
+  display: block;
+  margin-bottom: 10px;
+  color: #555b64;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .4px;
 }
 
 .campo input {
-    width: 100%;
-    height: 49px;
-
-    padding: 0 14px;
-
-    background: #fafafa;
-    border: 1px solid var(--borda);
-    border-radius: 9px;
-
-    color: var(--texto);
-    font-family: inherit;
-    font-size: 14px;
-
-    outline: none;
-    transition: 0.2s ease;
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  border: 1px solid #e6e3e0;
+  border-radius: 4px;
+  background: #fdfcfb;
+  color: #343943;
+  font-family: inherit;
+  font-size: 12px;
+  outline: none;
+  transition: .25s;
 }
 
 .campo input::placeholder {
-    color: #a5aab3;
+  color: #b1b2b5;
 }
 
 .campo input:focus {
-    background: var(--branco);
-    border-color: var(--vermelho);
-    box-shadow: 0 0 0 3px rgba(169, 31, 50, 0.09);
+  border-color: var(--vinho);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(118,37,54,.07);
 }
-
-/* BOTÃO ENTRAR */
 
 .btn-login {
-    width: 100%;
-    min-height: 50px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-
-    margin-top: 5px;
-    padding: 13px 18px;
-
-    background: var(--vermelho);
-    border: none;
-    border-radius: 9px;
-
-    color: var(--branco);
-    font-size: 14px;
-    font-weight: 750;
-
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.btn-login span {
-    font-size: 19px;
+  width: 100%;
+  height: 53px;
+  padding: 0 19px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  border-radius: 4px;
+  background: var(--vinho);
+  color: white;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  cursor: pointer;
+  transition: .25s;
 }
 
 .btn-login:hover {
-    background: var(--vermelho-escuro);
-    box-shadow: 0 7px 18px rgba(169, 31, 50, 0.22);
-    transform: translateY(-2px);
+  background: var(--vinho-escuro);
+  box-shadow: 0 8px 20px rgba(80,24,37,.16);
 }
 
 .btn-login:disabled {
-    opacity: 0.7;
-    cursor: wait;
-    transform: none;
+  opacity: .65;
+  cursor: not-allowed;
 }
 
-/* MENSAGEM DE ERRO */
-
-#mensagem-erro {
-    display: none;
-
-    padding: 11px 13px;
-
-    background: #fff0f0;
-    border: 1px solid #f3c5ca;
-    border-radius: 8px;
-
-    color: #a51e2c;
-    font-size: 13px;
-    line-height: 1.5;
+.mensagem-erro {
+  display: none;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #e9c9cd;
+  background: #fff5f5;
+  color: #9c2638;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
-/* RODAPÉ */
-
-.login-rodape {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 7px;
-
-    margin-top: 28px;
-    padding-top: 20px;
-
-    border-top: 1px solid var(--borda);
-
-    color: var(--cinza);
-    font-size: 11px;
+.mensagem-erro.visivel {
+  display: block;
 }
 
-/* ASSINATURA */
+.login-seguranca {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 30px;
+  padding-top: 23px;
+  border-top: 1px solid #f0eeeb;
+  color: #a2a1a0;
+  font-size: 10px;
+  letter-spacing: .2px;
+}
 
-.assinatura {
-    margin-top: 25px;
+.login-seguranca span {
+  color: var(--dourado);
+}
 
-    color: #a0a5ad;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
+.rodape-login {
+  position: absolute;
+  bottom: 24px;
+  color: #aaa7a3;
+  font-size: 10px;
+  letter-spacing: .3px;
+  text-align: center;
 }
 
 /* BOTÃO DE TEMA */
 
 .theme-toggle {
-    position: fixed;
-    top: 22px;
-    right: 22px;
-
-    width: 43px;
-    height: 43px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: var(--branco);
-    border: 1px solid var(--borda);
-    border-radius: 50%;
-
-    font-size: 18px;
-    cursor: pointer;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    transition: 0.2s ease;
-}
-
-.theme-toggle:hover {
-    transform: rotate(15deg);
-}
-
-/* ACESSIBILIDADE */
-
-button:focus-visible,
-input:focus-visible {
-    outline: 3px solid rgba(169, 31, 50, 0.25);
-    outline-offset: 3px;
-}
-
-/* ANIMAÇÃO */
-
-@keyframes aparecer {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  position: fixed;
+  top: 23px;
+  right: 25px;
+  z-index: 10;
+  width: 39px;
+  height: 39px;
+  border: 1px solid #e8e4e0;
+  border-radius: 50%;
+  background: #fff;
+  color: #555;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,.04);
 }
 
 /* RESPONSIVIDADE */
 
-@media (max-width: 500px) {
-    .container {
-        padding: 32px 23px 25px;
-        border-radius: 14px;
-    }
+@media (max-width: 850px) {
+  .pagina-login {
+    grid-template-columns: 1fr;
+  }
 
-    .login-cabecalho h1 {
-        font-size: 25px;
-    }
+  .painel-institucional {
+    min-height: 300px;
+    padding: 35px 8%;
+  }
 
-    .theme-toggle {
-        top: 13px;
-        right: 13px;
-    }
+  .institucional-conteudo {
+    margin: 40px 0;
+  }
+
+  .institucional-conteudo h1 {
+    font-size: 36px;
+  }
+
+  .institucional-rodape {
+    display: none;
+  }
+
+  .painel-acesso {
+    min-height: 600px;
+    padding: 55px 20px 80px;
+  }
+
+  .login-card {
+    max-width: 440px;
+  }
+}
+
+@media (max-width: 480px) {
+  .painel-institucional {
+    min-height: 260px;
+    padding: 28px 25px;
+  }
+
+  .institucional-conteudo h1 {
+    font-size: 29px;
+  }
+
+  .institucional-conteudo p {
+    font-size: 12px;
+  }
+
+  .login-card {
+    padding: 35px 25px;
+  }
+
+  .login-cabecalho h2 {
+    font-size: 29px;
+  }
 }
