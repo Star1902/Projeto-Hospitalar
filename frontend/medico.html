@@ -20,20 +20,10 @@
 
   <header class="topo-painel">
     <h2>🩺 Painel Médico</h2>
-
-    <button
-      class="btn-tv-header"
-      type="button"
-      aria-label="Abrir painel da televisão em uma nova aba"
-      onclick="window.open('tv.html','_blank','noopener,noreferrer')">
-      📺 Abrir Tela da TV
-    </button>
-
     <p class="topo-subtitulo">Central de atendimento clínico</p>
   </header>
 
   <section class="consultorio-box" aria-label="Configuração do consultório">
-
     <label for="consultorio-num">
       <strong>Meu Consultório:</strong>
     </label>
@@ -49,7 +39,6 @@
     <span id="ajuda-consultorio">
       Número enviado para a TV ao chamar.
     </span>
-
   </section>
 
   <main class="medico-grid" id="conteudo-principal">
@@ -68,6 +57,16 @@
         <span class="indicador-atualizacao" aria-label="Atualização automática">
           ● Atualização automática
         </span>
+      </div>
+
+      <div class="acoes-fila">
+        <button
+          class="btn-tv-header"
+          type="button"
+          aria-label="Abrir painel da televisão em uma nova aba"
+          onclick="window.open('tv.html','_blank','noopener,noreferrer')">
+          📺 Abrir Tela da TV
+        </button>
       </div>
 
       <div id="triagens" aria-live="polite" aria-busy="false">
@@ -97,10 +96,7 @@
         </div>
       </div>
 
-      <div
-        id="alertaAlergia"
-        class="alerta-alergia">
-      </div>
+      <div id="alertaAlergia" class="alerta-alergia"></div>
 
       <div class="form-group">
         <label for="paciente">
@@ -207,15 +203,14 @@ function carregar() {
 
       triagensCarregadas = fila;
 
-      const div =
-        document.getElementById("triagens");
+      const div = document.getElementById("triagens");
 
       div.innerHTML = "";
 
       if (fila.length === 0) {
 
-        div.innerHTML =
-          `<p class="fila-vazia">
+        div.innerHTML = `
+          <p class="fila-vazia">
             Nenhum paciente na fila de espera.
           </p>`;
 
@@ -228,14 +223,11 @@ function carregar() {
           pacienteSelecionado &&
           pacienteSelecionado.id === t.id;
 
-        const divCard =
-          document.createElement("div");
+        const divCard = document.createElement("div");
 
         divCard.className =
           `card-paciente ${
-            ehSelecionado
-              ? "selecionado"
-              : ""
+            ehSelecionado ? "selecionado" : ""
           }`;
 
         divCard.innerHTML = `
@@ -292,10 +284,7 @@ function carregar() {
     })
 
     .catch(err =>
-      console.error(
-        "Erro ao carregar fila:",
-        err
-      )
+      console.error("Erro ao carregar fila:", err)
     );
 }
 
@@ -304,33 +293,26 @@ function chamarESelecionar(index) {
 
   selecionar(index);
 
-  const t =
-    triagensCarregadas[index];
+  const t = triagensCarregadas[index];
 
   const consultorio =
-    document.getElementById(
-      "consultorio-num"
-    ).value || "01";
+    document.getElementById("consultorio-num").value || "01";
 
   fetch("/tv/chamar", {
 
     method: "POST",
 
     headers: {
-      "Content-Type":
-        "application/json"
+      "Content-Type": "application/json"
     },
 
     body: JSON.stringify({
 
-      localTipo:
-        "CONSULTÓRIO",
+      localTipo: "CONSULTÓRIO",
 
-      localNumero:
-        consultorio,
+      localNumero: consultorio,
 
-      paciente:
-        t.nome
+      paciente: t.nome
 
     })
 
@@ -341,26 +323,19 @@ function chamarESelecionar(index) {
 
 function selecionar(index) {
 
-  const t =
-    triagensCarregadas[index];
+  const t = triagensCarregadas[index];
 
   pacienteSelecionado = t;
 
-  document.getElementById(
-    "paciente"
-  ).value = t.nome;
+  document.getElementById("paciente").value = t.nome;
 
-  document.getElementById(
-    "obs"
-  ).value =
+  document.getElementById("obs").value =
     t.observacao
       ? `[Triagem]: ${t.observacao}\n`
       : "";
 
   const divAlerta =
-    document.getElementById(
-      "alertaAlergia"
-    );
+    document.getElementById("alertaAlergia");
 
   if (
     t.alergia &&
@@ -368,8 +343,7 @@ function selecionar(index) {
     t.alergia.toLowerCase() !== "não"
   ) {
 
-    divAlerta.style.display =
-      "block";
+    divAlerta.style.display = "block";
 
     divAlerta.innerHTML =
       "<strong>⚠️ ALERTA DE ALERGIA:</strong> " +
@@ -377,8 +351,7 @@ function selecionar(index) {
 
   } else {
 
-    divAlerta.style.display =
-      "none";
+    divAlerta.style.display = "none";
 
   }
 
@@ -396,24 +369,18 @@ function carregarMedicacoes() {
     .then(data => {
 
       const select =
-        document.getElementById(
-          "medicacao"
-        );
+        document.getElementById("medicacao");
 
-      select.innerHTML =
-        `<option value="">
+      select.innerHTML = `
+        <option value="">
           Selecione a medicação
         </option>`;
 
       data.forEach(med => {
 
-        const option =
-          document.createElement(
-            "option"
-          );
+        const option = document.createElement("option");
 
         option.value = med;
-
         option.textContent = med;
 
         select.appendChild(option);
@@ -428,30 +395,20 @@ function carregarMedicacoes() {
 function gerarPDFAlta() {
 
   const paciente =
-    document.getElementById(
-      "paciente"
-    ).value;
+    document.getElementById("paciente").value;
 
   const diagnostico =
-    document.getElementById(
-      "diagnostico"
-    ).value;
+    document.getElementById("diagnostico").value;
 
   const medicacao =
-    document.getElementById(
-      "medicacao"
-    ).value;
+    document.getElementById("medicacao").value;
 
   const obs =
-    document.getElementById(
-      "obs"
-    ).value;
+    document.getElementById("obs").value;
 
   if (!paciente) {
 
-    alert(
-      "Por favor, selecione um paciente da lista."
-    );
+    alert("Por favor, selecione um paciente da lista.");
 
     return;
   }
@@ -488,22 +445,17 @@ function gerarPDFAlta() {
     method: "POST",
 
     headers: {
-      "Content-Type":
-        "application/json"
+      "Content-Type": "application/json"
     },
 
-    body:
-      JSON.stringify(dadosAlta)
+    body: JSON.stringify(dadosAlta)
 
   })
 
   .then(async response => {
 
     if (!response.ok)
-
-      throw new Error(
-        "Erro no servidor ao gerar PDF"
-      );
+      throw new Error("Erro no servidor ao gerar PDF");
 
     return response.blob();
 
@@ -511,21 +463,15 @@ function gerarPDFAlta() {
 
   .then(blob => {
 
-    const fileUrl =
-      URL.createObjectURL(blob);
+    const fileUrl = URL.createObjectURL(blob);
 
-    window.open(
-      fileUrl,
-      "_blank"
-    );
+    window.open(fileUrl, "_blank");
 
   })
 
   .catch(() => {
 
-    gerarPDFNativoNavegador(
-      dadosAlta
-    );
+    gerarPDFNativoNavegador(dadosAlta);
 
   });
 
@@ -534,11 +480,7 @@ function gerarPDFAlta() {
 
 function gerarPDFNativoNavegador(dados) {
 
-  const win =
-    window.open(
-      "",
-      "_blank"
-    );
+  const win = window.open("", "_blank");
 
   win.document.write(`
 
@@ -551,8 +493,7 @@ function gerarPDFNativoNavegador(dados) {
       <meta charset="UTF-8">
 
       <title>
-        Termo de Alta Médica -
-        ${dados.paciente}
+        Termo de Alta Médica - ${dados.paciente}
       </title>
 
       <style>
@@ -561,11 +502,7 @@ function gerarPDFNativoNavegador(dados) {
           box-sizing: border-box;
           margin: 0;
           padding: 0;
-          font-family: 'Segoe UI',
-          Tahoma,
-          Geneva,
-          Verdana,
-          sans-serif;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
@@ -683,13 +620,10 @@ function gerarPDFNativoNavegador(dados) {
 
         <div>
 
-          <h1>
-            Hospital Sentinela
-          </h1>
+          <h1>Hospital Sentinela</h1>
 
           <p>
-            Sistema de Gestão Hospitalar
-            e Prontuário
+            Sistema de Gestão Hospitalar e Prontuário
           </p>
 
         </div>
@@ -698,28 +632,22 @@ function gerarPDFNativoNavegador(dados) {
 
           <p>
 
-            <strong>
-              Emissão:
-            </strong>
+            <strong>Emissão:</strong>
 
             ${
-              new Date()
-                .toLocaleDateString(
-                  'pt-BR'
-                )
+              new Date().toLocaleDateString('pt-BR')
             }
 
             às
 
             ${
-              new Date()
-                .toLocaleTimeString(
-                  'pt-BR',
-                  {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  }
-                )
+              new Date().toLocaleTimeString(
+                'pt-BR',
+                {
+                  hour: '2-digit',
+                  minute: '2-digit'
+                }
+              )
             }
 
           </p>
@@ -772,28 +700,19 @@ function gerarPDFNativoNavegador(dados) {
 
       <div class="box">
 
-        <div
-          class="info-group"
-          style="margin-bottom:12px;"
-        >
+        <div class="info-group" style="margin-bottom:12px;">
 
-          <strong>
-            Diagnóstico / Hipótese:
-          </strong>
+          <strong>Diagnóstico / Hipótese:</strong>
 
           <br>
 
-          <span>
-            ${dados.diagnostico || "—"}
-          </span>
+          <span>${dados.diagnostico || "—"}</span>
 
         </div>
 
         <div class="info-group">
 
-          <strong>
-            Medicação Prescrita:
-          </strong>
+          <strong>Medicação Prescrita:</strong>
 
           <br>
 
@@ -817,10 +736,7 @@ function gerarPDFNativoNavegador(dados) {
         <p>
           ${
             dados.obs
-              ? dados.obs.replace(
-                  /\n/g,
-                  "<br>"
-                )
+              ? dados.obs.replace(/\n/g, "<br>")
               : "Paciente recebe alta médica sem intercorrências. Recomenda-se repouso e retorno em caso de novos sintomas."
           }
         </p>
@@ -847,10 +763,9 @@ function gerarPDFNativoNavegador(dados) {
 
       <script>
 
-        window.onload =
-          function() {
-            window.print();
-          };
+        window.onload = function() {
+          window.print();
+        };
 
       <\/script>
 
@@ -868,24 +783,16 @@ function gerarPDFNativoNavegador(dados) {
 function salvar() {
 
   const paciente =
-    document.getElementById(
-      "paciente"
-    ).value;
+    document.getElementById("paciente").value;
 
   const diagnostico =
-    document.getElementById(
-      "diagnostico"
-    ).value;
+    document.getElementById("diagnostico").value;
 
   const medicacao =
-    document.getElementById(
-      "medicacao"
-    ).value;
+    document.getElementById("medicacao").value;
 
   const obs =
-    document.getElementById(
-      "obs"
-    ).value;
+    document.getElementById("obs").value;
 
   if (
     !paciente ||
@@ -893,9 +800,7 @@ function salvar() {
     !medicacao
   ) {
 
-    alert(
-      "Preencha todos os campos obrigatórios."
-    );
+    alert("Preencha todos os campos obrigatórios.");
 
     return;
   }
@@ -905,8 +810,7 @@ function salvar() {
     method: "POST",
 
     headers: {
-      "Content-Type":
-        "application/json"
+      "Content-Type": "application/json"
     },
 
     body: JSON.stringify({
@@ -930,30 +834,14 @@ function salvar() {
 
   .then(() => {
 
-    alert(
-      "Consulta finalizada com sucesso!"
-    );
+    alert("Consulta finalizada com sucesso!");
 
-    document.getElementById(
-      "paciente"
-    ).value = "";
+    document.getElementById("paciente").value = "";
+    document.getElementById("diagnostico").value = "";
+    document.getElementById("medicacao").value = "";
+    document.getElementById("obs").value = "";
 
-    document.getElementById(
-      "diagnostico"
-    ).value = "";
-
-    document.getElementById(
-      "medicacao"
-    ).value = "";
-
-    document.getElementById(
-      "obs"
-    ).value = "";
-
-    document.getElementById(
-      "alertaAlergia"
-    ).style.display =
-      "none";
+    document.getElementById("alertaAlergia").style.display = "none";
 
     pacienteSelecionado = null;
 
@@ -968,10 +856,7 @@ carregar();
 
 carregarMedicacoes();
 
-setInterval(
-  carregar,
-  10000
-);
+setInterval(carregar, 10000);
 
 </script>
 
