@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: hospital-sentinela
-    runtime: node
-    buildCommand: npm install
-    startCommand: npm start
-    healthCheckPath: /health
