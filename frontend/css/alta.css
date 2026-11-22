@@ -1,0 +1,11 @@
+@import url("./theme.css");
+body{display:block;padding:28px 16px}
+.container{max-width:900px;margin:0 auto}
+.container h1{color:var(--wine-dark);font-size:28px}
+h2{color:var(--wine-dark);border-color:var(--line);margin-top:28px}
+.alerta{background:var(--wine-soft);border-left-color:var(--wine);color:var(--wine-dark);border-radius:8px}
+.assinatura strong{color:var(--wine-dark)}
+.botoes button{min-height:48px}
+.btn-pdf{background:var(--wine)}
+@media(max-width:650px){.linha{flex-direction:column;gap:0}.container{padding:22px}.botoes{flex-direction:column}}
+@media print{body{padding:0;background:#fff}.container{box-shadow:none;border:0;padding:0}.botoes,.alerta{display:none!important}}
