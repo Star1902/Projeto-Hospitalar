@@ -43,9 +43,6 @@ const db = {
   tv_historico: []
 };
 
-// Verificação de saúde para o Render
-app.get("/health", (req, res) => res.status(200).json({ status: "ok" }));
-
 // LOGIN
 app.post("/login", (req, res) => {
   const { usuario, senha } = req.body;
@@ -246,5 +243,7 @@ app.post("/gerar-pdf-alta", (req, res) => {
   }
 });
 
+app.get("/health", (req, res) => res.status(200).json({ status: "ok", service: "hospital-sentinela" }));
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, "0.0.0.0", () => console.log(`Servidor rodando na porta ${PORT}`));
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
