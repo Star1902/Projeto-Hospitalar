@@ -63,6 +63,19 @@
       </div>
 
       <div class="form-group">
+        <label for="risco">Prioridade registrada pelo profissional *</label>
+        <select id="risco" required>
+          <option value="">Selecione a classificação</option>
+          <option value="vermelho">Vermelho — Emergência</option>
+          <option value="laranja">Laranja — Muito urgente</option>
+          <option value="amarelo">Amarelo — Urgente</option>
+          <option value="verde">Verde — Pouco urgente</option>
+          <option value="azul">Azul — Não urgente</option>
+        </select>
+        <small>A classificação deve ser definida por profissional habilitado, conforme protocolo institucional vigente. Esta tela não calcula nem valida o Protocolo de Manchester.</small>
+      </div>
+
+      <div class="form-group">
         <label>Temperatura (°C) *</label>
         <input id="temp" type="number" step="0.1" placeholder="Ex: 36.5">
       </div>
@@ -111,13 +124,17 @@ function carregarPacientes() {
           item.classList.add("selecionado");
         }
 
-        item.innerHTML = `
-          <div>
-            <strong>${p.nome}</strong><br>
-            <small style="color:#718096;">CPF: ${p.cpf || "—"} | ${p.tipo || "Geral"}</small>
-          </div>
-          <button class="btn-tv" onclick='selecionarEChamar(${JSON.stringify(p)})'>📺 Chamar na TV</button>
-        `;
+        const dados = document.createElement("div");
+        const nome = document.createElement("strong"); nome.textContent = p.nome || "Paciente";
+        const detalhe = document.createElement("small");
+        detalhe.style.color = "#718096";
+        detalhe.textContent = `CPF: ${p.cpf || "—"} | ${p.tipo || "Geral"}`;
+        dados.append(nome, document.createElement("br"), detalhe);
+        const botao = document.createElement("button");
+        botao.className = "btn-tv"; botao.type = "button";
+        botao.textContent = "📺 Chamar na TV";
+        botao.addEventListener("click", () => selecionarEChamar(p));
+        item.append(dados, botao);
         div.appendChild(item);
       });
     })
@@ -154,33 +171,28 @@ function selecionarEChamar(paciente) {
   .catch(err => console.error("Erro ao chamar na TV:", err));
 }
 
-function classificarRisco(sintoma, temperatura) {
-  const vermelhos = ["infarto","avc","convulsao","hemorragia","falta_ar_grave"];
-  const amarelos = ["febre","vomito","diarreia","falta_ar_moderada"];
-  if (temperatura >= 39) return "vermelho";
-  if (vermelhos.includes(sintoma)) return "vermelho";
-  if (amarelos.includes(sintoma)) return "amarelo";
-  return "verde";
-}
-
 function salvar() {
   const nome = document.getElementById("nome").value;
   const sintoma = document.getElementById("sintoma").value;
   const temperatura = Number(document.getElementById("temp").value);
   const alergia = document.getElementById("alergia").value;
   const observacao = document.getElementById("observacao").value;
+  const risco = document.getElementById("risco").value;
 
   if (!pacienteAtual || !pacienteAtual.id) {
     alert("Por favor, selecione um paciente da lista clicando em 'Chamar na TV'.");
     return;
   }
 
-  if (!sintoma || !temperatura) {
+  if (!sintoma || !document.getElementById("temp").value || !Number.isFinite(temperatura) || temperatura < 25 || temperatura > 45) {
     alert("Por favor, preencha o Sintoma e a Temperatura do paciente.");
     return;
   }
 
-  const risco = classificarRisco(sintoma, temperatura);
+  if (!risco) {
+    alert("Selecione a prioridade registrada pelo profissional responsável.");
+    return;
+  }
 
   fetch("/triagem", {
     method: "POST",
@@ -206,7 +218,7 @@ function salvar() {
     const resultado = document.getElementById("resultado");
     resultado.className = "risco-" + risco;
     resultado.style.display = "block";
-    resultado.innerHTML = "Classificação de Risco: " + risco.toUpperCase();
+    resultado.textContent = "Classificação registrada: " + risco.toUpperCase();
 
     alert("Triagem concluída com sucesso! Paciente encaminhado para o Médico.");
 
@@ -214,6 +226,7 @@ function salvar() {
     document.getElementById("nome").value = "";
     document.getElementById("sintoma").value = "";
     document.getElementById("temp").value = "";
+    document.getElementById("risco").value = "";
     document.getElementById("alergia").value = "";
     document.getElementById("observacao").value = "";
     pacienteAtual = null;

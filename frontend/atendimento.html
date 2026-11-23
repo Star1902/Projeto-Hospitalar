@@ -20,7 +20,7 @@
   <!-- CPF e Data de Nascimento -->
   <div class="form-group form-row">
     <input id="cpf" placeholder="CPF (000.000.000-00)">
-    <input type="date" id="dataNascimento" onchange="calcularIdade()" title="Data de Nascimento">
+    <input type="date" id="dataNascimento" onchange="calcularIdade()" title="Data de Nascimento" aria-label="Data de nascimento">
   </div>
 
   <!-- Sexo e Estado Civil -->
@@ -92,6 +92,12 @@ function calcularIdade() {
     idade--;
   }
 
+  if (idade < 0) {
+    exibirMensagem("A data de nascimento não pode estar no futuro.", "erro");
+    divResponsavel.style.display = "none";
+    idadeCalculada = null;
+    return;
+  }
   idadeCalculada = idade;
 
   // Exibe o campo do responsável para menores de 18 anos
@@ -116,7 +122,7 @@ async function cadastrar() {
   const responsavelVal = document.getElementById("responsavel").value.trim();
   const btn = document.getElementById("btnCadastrar");
 
-  if (!nomeVal || !dataNascVal) {
+  if (!nomeVal || !dataNascVal || idadeCalculada === null) {
     exibirMensagem("Por favor, preencha o Nome e a Data de Nascimento.", "erro");
     return;
   }
@@ -161,7 +167,8 @@ async function cadastrar() {
       document.getElementById("campoResponsavel").style.display = "none";
       document.getElementById("foto").value = "";
     } else {
-      exibirMensagem("Erro no servidor ao tentar cadastrar o paciente.", "erro");
+      const erroServidor = await resposta.json().catch(() => ({}));
+      exibirMensagem(erroServidor.erro || "Erro no servidor ao tentar cadastrar o paciente.", "erro");
     }
   } catch (erro) {
     console.error("Erro na requisição:", erro);

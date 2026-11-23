@@ -1,13 +1,16 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const cors = require("cors");
 const PDFDocument = require("pdfkit");
 
 const app = express();
 
-app.use(express.json());
-app.use(cors());
+app.disable("x-powered-by");
+app.use(express.json({ limit: "100kb" }));
+app.use((req, res, next) => {
+  if (req.path.startsWith("/")) res.setHeader("Cache-Control", "no-store");
+  next();
+});
 
 // Configuração dos caminhos estáticos
 let frontendPath = path.join(__dirname, "../frontend");
@@ -57,14 +60,18 @@ app.post("/login", (req, res) => {
 
 // ATENDIMENTO
 app.post("/atendimento", (req, res) => {
+  const { nome, dataNascimento } = req.body;
+  if (typeof nome !== "string" || !nome.trim() || typeof dataNascimento !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(dataNascimento)) {
+    return res.status(400).json({ erro: "Informe nome e data de nascimento válidos." });
+  }
   const paciente = {
     id: Date.now(),
-    nome: req.body.nome,
-    cpf: req.body.cpf,
-    dataNascimento: req.body.dataNascimento,
-    idade: req.body.idade,
-    responsavel: req.body.responsavel,
-    tipo: req.body.tipo,
+    nome: nome.trim().slice(0, 140),
+    cpf: String(req.body.cpf || "").slice(0, 20),
+    dataNascimento,
+    idade: Number.isInteger(req.body.idade) ? req.body.idade : null,
+    responsavel: String(req.body.responsavel || "").slice(0, 140),
+    tipo: String(req.body.tipo || "Geral").slice(0, 40),
     status: "triagem",
     createdAt: new Date()
   };
@@ -80,15 +87,11 @@ app.get("/pacientes", (req, res) => {
 // TRIAGEM
 app.post("/triagem", (req, res) => {
   try {
-    const { pacienteId, nome, sintoma, temperatura, alergia, observacao } = req.body;
+    const { pacienteId, nome, sintoma, temperatura, alergia, observacao, risco } = req.body;
 
-    let risco = req.body.risco;
-    if (temperatura >= 39) {
-      risco = "vermelho";
-    } else if (temperatura >= 38) {
-      risco = "amarelo";
-    } else if (!risco) {
-      risco = "verde";
+    const prioridadesPermitidas = ["vermelho", "laranja", "amarelo", "verde", "azul"];
+    if (!nome || !sintoma || !Number.isFinite(Number(temperatura)) || Number(temperatura) < 25 || Number(temperatura) > 45 || !prioridadesPermitidas.includes(risco)) {
+      return res.status(400).json({ erro: "Dados de triagem inválidos. A prioridade deve ser registrada pelo profissional responsável." });
     }
 
     if (pacienteId) {
@@ -103,9 +106,9 @@ app.post("/triagem", (req, res) => {
       pacienteId,
       nome,
       sintoma,
-      temperatura,
-      alergia,
-      observacao,
+      temperatura: Number(temperatura),
+      alergia: String(alergia || "").slice(0, 500),
+      observacao: String(observacao || "").slice(0, 2000),
       risco,
       status: "aguardando_medico",
       createdAt: new Date()
@@ -124,11 +127,15 @@ app.get("/triagens", (req, res) => {
 
 // TV - CHAMADAS
 app.post("/tv/chamar", (req, res) => {
+  const { localTipo, localNumero, paciente } = req.body;
+  if (![localTipo, localNumero, paciente].every(v => typeof v === "string" && v.trim())) {
+    return res.status(400).json({ erro: "Informe local, número e paciente para realizar a chamada." });
+  }
   const chamada = {
     id: Date.now().toString(),
-    localTipo: req.body.localTipo,
-    localNumero: req.body.localNumero,
-    paciente: req.body.paciente,
+    localTipo: localTipo.trim().slice(0, 40),
+    localNumero: localNumero.trim().slice(0, 12),
+    paciente: paciente.trim().slice(0, 140),
     hora: new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })
   };
 
@@ -156,6 +163,9 @@ app.get("/lista-medicacoes", (req, res) => {
 // CONSULTA
 app.post("/consulta", (req, res) => {
   const { triagemId, paciente, diagnostico, medicacao, obs } = req.body;
+  if (![paciente, diagnostico, medicacao].every(v => typeof v === "string" && v.trim())) {
+    return res.status(400).json({ erro: "Paciente, diagnóstico e medicação são obrigatórios." });
+  }
 
   if (triagemId) {
     const triagem = db.triagens.find(t => String(t.id) === String(triagemId));
@@ -167,10 +177,10 @@ app.post("/consulta", (req, res) => {
   const consulta = {
     id: Date.now(),
     triagemId,
-    paciente,
-    diagnostico,
-    medicacao,
-    obs,
+    paciente: paciente.trim().slice(0, 140),
+    diagnostico: diagnostico.trim().slice(0, 2000),
+    medicacao: medicacao.trim().slice(0, 500),
+    obs: String(obs || "").slice(0, 3000),
     createdAt: new Date()
   };
 
@@ -244,6 +254,13 @@ app.post("/gerar-pdf-alta", (req, res) => {
 });
 
 app.get("/health", (req, res) => res.status(200).json({ status: "ok", service: "hospital-sentinela" }));
+
+app.use((req, res) => res.status(404).json({ erro: "Rota não encontrada." }));
+app.use((error, req, res, next) => {
+  console.error("Falha na requisição:", error.message);
+  if (res.headersSent) return next(error);
+  res.status(error.status || 500).json({ erro: error.status === 413 ? "A requisição excede o limite permitido." : "Erro interno do servidor." });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));

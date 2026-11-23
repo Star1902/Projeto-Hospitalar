@@ -171,6 +171,11 @@
 let triagensCarregadas = [];
 let pacienteSelecionado = null;
 
+function escaparHTML(valor) {
+  return String(valor ?? "").replace(/[&<>"']/g, caractere => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
+  })[caractere]);
+}
 
 function carregar() {
 
@@ -191,8 +196,10 @@ function carregar() {
 
         const peso = {
           vermelho: 1,
-          amarelo: 2,
-          verde: 3
+          laranja: 2,
+          amarelo: 3,
+          verde: 4,
+          azul: 5
         };
 
         return (
@@ -246,11 +253,11 @@ function carregar() {
           <div class="paciente-header">
 
             <strong>
-              ${t.nome}
+              ${escaparHTML(t.nome)}
             </strong>
 
             <span class="badge-risco ${t.risco}">
-              ${t.risco || "verde"}
+              ${escaparHTML(t.risco || "verde")}
             </span>
 
           </div>
@@ -258,18 +265,18 @@ function carregar() {
 
           <p class="informacao-paciente">
             <b>Sintoma:</b>
-            ${t.sintoma || "Não informado"}
+            ${escaparHTML(t.sintoma || "Não informado")}
           </p>
 
 
           <p class="informacao-paciente">
             <b>Temp:</b>
-            ${t.temperatura || "—"}°C
+            ${escaparHTML(t.temperatura || "—")}°C
 
             |
 
             <b>Alergia:</b>
-            ${t.alergia || "Nenhuma"}
+            ${escaparHTML(t.alergia || "Nenhuma")}
           </p>
 
 
@@ -385,7 +392,7 @@ function selecionar(index) {
 
     divAlerta.innerHTML =
       "<strong>⚠️ ALERTA DE ALERGIA:</strong> " +
-      t.alergia;
+      escaparHTML(t.alergia);
 
   } else {
 
@@ -939,7 +946,6 @@ function gerarPDFNativoNavegador(dados) {
 
       <\/script>
 
-    <script src="/js/hospital-navigation.js"></script>
 </body>
 
     </html>
@@ -1065,6 +1071,6 @@ setInterval(
 );
 
 </script>
-
+<script src="/js/hospital-navigation.js"></script>
 </body>
 </html>

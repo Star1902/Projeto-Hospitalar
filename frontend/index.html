@@ -3,21 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema Hospitalar - Login</title>
+<title>Hospital Sentinela | Acesso ao sistema</title>
 <link rel="stylesheet" href="/css/index.css">
 
 <link rel="stylesheet" href="/css/hospital-premium.css">
 </head>
 <body>
-<div class="container">
-  <h2>🏥 Sistema Hospitalar</h2>
-  <input id="usuario" placeholder="Usuário">
-  <input id="senha" type="password" placeholder="Senha">
-  <button onclick="login()">Entrar</button>
+<main class="container">
+  <h2>Hospital Sentinela</h2>
+  <p style="text-align:center;color:#647789;margin-top:-16px;margin-bottom:24px">Acesso ao sistema hospitalar</p>
+  <label for="usuario">Usuário</label><input id="usuario" autocomplete="username" placeholder="Digite seu usuário">
+  <label for="senha">Senha</label><input id="senha" type="password" autocomplete="current-password" placeholder="Digite sua senha">
+  <button type="button" onclick="login()">Entrar no sistema</button>
   <div id="mensagem-erro"></div>
-</div>
+</main>
 
 <script>
+document.addEventListener("keydown", event => { if (event.key === "Enter") login(); });
 function login() {
   const usuarioInput = document.getElementById("usuario").value.trim();
   const senhaInput = document.getElementById("senha").value.trim();
