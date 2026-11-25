@@ -1,61 +1,31 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hospital Sentinela | Acesso ao sistema</title>
-<link rel="stylesheet" href="/css/index.css">
-
-<link rel="stylesheet" href="/css/hospital-premium.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="container">
-  <h2>Hospital Sentinela</h2>
-  <p style="text-align:center;color:#647789;margin-top:-16px;margin-bottom:24px">Acesso ao sistema hospitalar</p>
-  <label for="usuario">Usuário</label><input id="usuario" autocomplete="username" placeholder="Digite seu usuário">
-  <label for="senha">Senha</label><input id="senha" type="password" autocomplete="current-password" placeholder="Digite sua senha">
-  <button type="button" onclick="login()">Entrar no sistema</button>
-  <div id="mensagem-erro"></div>
-</main>
+<div class="container">
+  <h2>🏥 Sistema Hospitalar</h2>
+  <input id="usuario" placeholder="Usuário">
+  <input id="senha" type="password" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+</div>
 
 <script>
-document.addEventListener("keydown", event => { if (event.key === "Enter") login(); });
 function login() {
-  const usuarioInput = document.getElementById("usuario").value.trim();
-  const senhaInput = document.getElementById("senha").value.trim();
-  const msgErro = document.getElementById("mensagem-erro");
-
-  if (!usuarioInput || !senhaInput) {
-    msgErro.textContent = "Preencha usuário e senha.";
-    msgErro.style.display = "block";
-    return;
-  }
-
-  fetch("/login", {
+  fetch("http://localhost:3000/login", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      usuario: usuarioInput,
-      senha: senhaInput
+      usuario: usuario.value,
+      senha: senha.value
     })
   })
-  .then(async response => {
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.erro || "Usuário ou senha incorretos.");
-    }
-    return response.json();
-  })
+  .then(r => r.json())
   .then(data => {
-    // Redireciona de acordo com o tipo do usuário retornado
-    if (data.tipo === "triagem") location.href = "triagem.html";
-    else if (data.tipo === "medico") location.href = "medico.html";
-    else if (data.tipo === "atendimento") location.href = "atendimento.html";
-    else location.href = "atendimento.html";
-  })
-  .catch(err => {
-    msgErro.textContent = err.message;
-    msgErro.style.display = "block";
+    if(data.tipo === "triagem") location.href = "triagem.html";
+    if(data.tipo === "medico") location.href = "medico.html";
+    if(data.tipo === "atendimento") location.href = "atendimento.html";
   });
 }
 </script>
